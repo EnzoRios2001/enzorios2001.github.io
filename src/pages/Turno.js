@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { TurnoService } from '../services/TurnoService';
 import { TurnoUIManager } from '../services/TurnoUIManager';
-import { handleError, toggleElementDisplay, formatearFecha } from './utils';
-import './turno.css';
+import { handleError, toggleElementDisplay, formatearFecha } from '../services/utils';
+import { supabase } from '../supabase/client';
+import '../turno.css';
 
 const Turno = () => {
     const [userId, setUserId] = useState(null);
@@ -20,6 +21,13 @@ const Turno = () => {
     useEffect(() => {
         const initializeServices = async () => {
             try {
+                // Get the current user
+                const { data: { user } } = await supabase.auth.getUser();
+                if (user) {
+                    setUserId(user.id);
+                    setIsLoggedIn(true);
+                }
+
                 // Inicializar servicios
                 turnoService.current = new TurnoService();
                 uiManager.current = new TurnoUIManager();
@@ -78,8 +86,19 @@ const Turno = () => {
 
     const confirmarTurno = async () => {
         if (!window.turnoPendiente) return;
+        if (!userId) {
+            alert('Debe iniciar sesión para solicitar un turno.');
+            return;
+        }
+        
         try {
-            const { error } = await turnoService.current.crearTurno(window.turnoPendiente);
+            // Add the user ID to the appointment data
+            const turnoData = {
+                ...window.turnoPendiente,
+                pacienteId: userId
+            };
+            
+            const { error } = await turnoService.current.crearTurno(turnoData);
             if (error) throw error;
             
             alert('Turno registrado exitosamente');

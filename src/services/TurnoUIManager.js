@@ -1,3 +1,5 @@
+import { supabase } from '../supabase/client';
+
 export class TurnoUIManager {
     constructor() {
         this.currentDate = new Date();
@@ -166,10 +168,15 @@ export class TurnoUIManager {
         if (!especialistaSelect.value || !especialidadSelect.value) {
             alert('Por favor, seleccione un especialista y una especialidad');
             return;
+        }        // Get current user from Supabase
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            alert('Debe iniciar sesión para solicitar un turno');
+            return;
         }
 
         const turnoData = {
-            pacienteId: localStorage.getItem('userId'), // Obtener el ID del usuario desde localStorage
+            pacienteId: user.id,
             especialistaId: especialistaSelect.value,
             especialidadId: especialidadSelect.value,
             fecha: fecha.toISOString().split('T')[0],
