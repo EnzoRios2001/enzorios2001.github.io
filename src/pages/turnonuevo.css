@@ -1,0 +1,63 @@
+.turno-nuevo-container {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem 1.5rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+.turno-nuevo-container h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+  font-weight: 600;
+}
+.turno-nuevo-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #444;
+  font-size: 1rem;
+}
+.turno-nuevo-select, .turno-nuevo-datepicker, .turno-nuevo-button {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 1rem;
+  background: #fafbfc;
+  color: #222;
+  box-sizing: border-box;
+}
+.turno-nuevo-select:disabled, .turno-nuevo-datepicker:disabled {
+  background: #f3f3f3;
+  color: #aaa;
+}
+.turno-nuevo-button {
+  background: #2d8cff;
+  color: #fff;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.turno-nuevo-button:disabled {
+  background: #b3d2fa;
+  cursor: not-allowed;
+}
+.turno-nuevo-mensaje {
+  margin-top: 0.5rem;
+  font-size: 0.98rem;
+}
+.turno-nuevo-mensaje.success {
+  color: #1aaf5d;
+}
+.turno-nuevo-mensaje.error {
+  color: #e23c3c;
+}
+.turno-nuevo-fecha {
+  margin-top: 1rem;
+  font-size: 1rem;
+  color: #333;
+}

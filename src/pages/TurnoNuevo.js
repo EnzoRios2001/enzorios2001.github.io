@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { supabase } from '../supabase/client';
+import "./turnonuevo.css";
 
 // Obtiene especialidades desde la tabla 'especialidades'
 async function obtenerEspecialidades() {
@@ -89,6 +90,8 @@ function TurnoNuevo() {
   const [horarioSeleccionado, setHorarioSeleccionado] = useState("");
   const [enviando, setEnviando] = useState(false);
   const [mensaje, setMensaje] = useState("");
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [confirmado, setConfirmado] = useState(false);
 
   useEffect(() => {
     async function fetchEspecialidades() {
@@ -135,6 +138,12 @@ function TurnoNuevo() {
 
   // Enviar solicitud de turno
   const handleEnviarSolicitud = async () => {
+    setMensaje("");
+    setMostrarModal(true);
+  };
+
+  // Confirmar y enviar a la base de datos
+  const handleConfirmar = async () => {
     setEnviando(true);
     setMensaje("");
     // Obtener usuario logeado
@@ -147,9 +156,7 @@ function TurnoNuevo() {
       setEnviando(false);
       return;
     }
-    // Buscar datos del horario seleccionado (comparando como string para evitar problemas de tipo)
     const horario = horarios.find(h => String(h.id_horario) === String(horarioSeleccionado));
-    // Insertar en la tabla solicitudes_turno
     const { error } = await supabase
       .from('solicitudes_turno')
       .insert([
@@ -164,20 +171,45 @@ function TurnoNuevo() {
       ]);
     if (error) {
       setMensaje("Error al enviar la solicitud: " + error.message);
+      setEnviando(false);
+      setMostrarModal(false);
     } else {
       setMensaje("¡Solicitud enviada correctamente!");
       setFechaSeleccionada(null);
       setHorarioSeleccionado("");
+      setConfirmado(true);
     }
     setEnviando(false);
   };
 
+  // Obtener textos para mostrar en el modal
+  const especialidadText = especialidades.find(e => String(e.id) === String(especialidadSeleccionada))?.especialidad || "";
+  const especialistaText = especialistas.find(e => String(e.id_persona) === String(especialistaSeleccionado))?.nombre || "";
+  const horarioObj = horarios.find(h => String(h.id_horario) === String(horarioSeleccionado));
+  const horarioText = horarioObj ? `Día ${horarioObj.dia_semana} - ${horarioObj.hora_inicio} a ${horarioObj.hora_fin}` : "";
+  const fechaText = fechaSeleccionada ? fechaSeleccionada.toLocaleDateString() : "";
+
+  // Limpia todos los campos y estados
+  const limpiarTodo = () => {
+    setEspecialidadSeleccionada("");
+    setEspecialistas([]);
+    setEspecialistaSeleccionado("");
+    setDiasTrabajo([]);
+    setFechaSeleccionada(null);
+    setHorarios([]);
+    setHorarioSeleccionado("");
+    setMensaje("");
+    setConfirmado(false);
+    setMostrarModal(false);
+  };
+
   return (
-    <div style={{ maxWidth: 400, margin: "2rem auto", padding: 24, background: "#f9f9fb", borderRadius: 12 }}>
+    <div className="turno-nuevo-container">
       <h2>Selecciona un turno</h2>
       <div style={{ marginBottom: 16 }}>
-        <label>Especialidad:</label>
+        <label className="turno-nuevo-label">Especialidad:</label>
         <select
+          className="turno-nuevo-select"
           value={especialidadSeleccionada}
           onChange={e => setEspecialidadSeleccionada(e.target.value)}
         >
@@ -188,8 +220,9 @@ function TurnoNuevo() {
         </select>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label>Especialista:</label>
+        <label className="turno-nuevo-label">Especialista:</label>
         <select
+          className="turno-nuevo-select"
           value={especialistaSeleccionado}
           onChange={e => setEspecialistaSeleccionado(e.target.value)}
           disabled={!especialidadSeleccionada || loadingEspecialistas}
@@ -201,8 +234,9 @@ function TurnoNuevo() {
         </select>
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label>Fecha:</label><br />
+        <label className="turno-nuevo-label">Fecha:</label><br />
         <DatePicker
+          className="turno-nuevo-datepicker"
           selected={fechaSeleccionada}
           onChange={setFechaSeleccionada}
           filterDate={isDiaTrabajo}
@@ -214,8 +248,9 @@ function TurnoNuevo() {
         {loadingDias && <div>Cargando días disponibles...</div>}
       </div>
       <div style={{ marginBottom: 16 }}>
-        <label>Horario:</label>
+        <label className="turno-nuevo-label">Horario:</label>
         <select
+          className="turno-nuevo-select"
           value={horarioSeleccionado}
           onChange={e => setHorarioSeleccionado(e.target.value)}
           disabled={!especialistaSeleccionado || horarios.length === 0}
@@ -229,16 +264,58 @@ function TurnoNuevo() {
         </select>
       </div>
       {fechaSeleccionada && (
-        <div style={{ marginTop: 16 }}>
+        <div className="turno-nuevo-fecha">
           <strong>Fecha seleccionada:</strong> {fechaSeleccionada.toLocaleDateString()}
         </div>
       )}
       <div style={{ marginBottom: 16 }}>
-        <button onClick={handleEnviarSolicitud} disabled={enviando}>
+        <button className="turno-nuevo-button" onClick={handleEnviarSolicitud} disabled={enviando}>
           {enviando ? "Enviando..." : "Solicitar turno"}
         </button>
-        {mensaje && <div style={{ marginTop: 8, color: mensaje.startsWith('¡') ? 'green' : 'red' }}>{mensaje}</div>}
+        {mensaje && (
+          <div className={`turno-nuevo-mensaje ${mensaje.startsWith('¡') ? 'success' : 'error'}`}>
+            {mensaje}
+          </div>
+        )}
       </div>
+      {mostrarModal && (
+        <div className="turno-nuevo-modal-overlay">
+          <div className="turno-nuevo-modal">
+            {!confirmado ? (
+              <>
+                <h3>Confirmar solicitud</h3>
+                <div className="turno-nuevo-modal-datos">
+                  <div><strong>Especialidad:</strong> {especialidadText}</div>
+                  <div><strong>Especialista:</strong> {especialistaText}</div>
+                  <div><strong>Fecha:</strong> {fechaText}</div>
+                  <div><strong>Horario:</strong> {horarioText}</div>
+                </div>
+                <div className="turno-nuevo-modal-botones">
+                  <button className="turno-nuevo-button" onClick={handleConfirmar} disabled={enviando}>
+                    {enviando ? "Enviando..." : "Confirmar"}
+                  </button>
+                  <button className="turno-nuevo-button" style={{background:'#eee',color:'#222'}} onClick={()=>setMostrarModal(false)} disabled={enviando}>
+                    Cancelar
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="turno-nuevo-modal-datos">
+                  <div><strong>Especialidad:</strong> {especialidadText}</div>
+                  <div><strong>Especialista:</strong> {especialistaText}</div>
+                  <div><strong>Fecha:</strong> {fechaText}</div>
+                  <div><strong>Horario:</strong> {horarioText}</div>
+                </div>
+                <button className="turno-nuevo-button" style={{marginTop:'1rem'}} onClick={limpiarTodo}>
+                  Cerrar
+                </button>
+                <button className="turno-nuevo-button" style={{marginTop:'0.5rem',background:'#f3f3f3',color:'#222',border:'1px solid #e0e0e0'}} onClick={()=>alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
+              </>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
