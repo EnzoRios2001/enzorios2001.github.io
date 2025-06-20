@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Turno from './pages/Turno';
 import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
+import TurnoNuevo from './pages/TurnoNuevo'; // Asegúrate de que este componente esté creado
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -116,6 +117,15 @@ function App() {
           element={
             <PrivateRoute>
               <div>Historial Médico (En construcción)</div>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/turno-nuevo"
+          element={
+            <PrivateRoute>
+              <TurnoNuevo />
             </PrivateRoute>
           }
         />

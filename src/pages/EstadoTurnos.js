@@ -45,14 +45,16 @@ const EstadoTurnos = () => {
         try {
             const confirmacion = window.confirm('¿Está seguro que desea cancelar este turno?');
             if (!confirmacion) return;
-
-            const { error } = await supabase
-                .from('solicitudes_turno')
-                .update({ estado: 'cancelado' })
-                .eq('id', turnoId);
-
+            // Obtener el usuario logeado
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) throw new Error('No se pudo obtener el usuario logeado');
+            // Llamar al RPC para cancelar y loguear el turno
+            const { error } = await supabase.rpc('cancelar_turno', {
+                turno_id: turnoId,
+                nuevo_estado: 'cancelado',
+                user_id: user.id
+            });
             if (error) throw error;
-            
             fetchTurnos();
         } catch (error) {
             alert('Error al cancelar el turno: ' + error.message);

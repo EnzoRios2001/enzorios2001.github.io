@@ -12,7 +12,7 @@ function Home() {
           <span className="icon-placeholder"></span>
           <span>Mi Perfil</span>
         </Link>
-        <Link to="/turno" className="shortcut-button">
+        <Link to="/turno-nuevo" className="shortcut-button">
           <span className="icon-placeholder"></span>
           <span>Solicitar turno</span>
         </Link>
