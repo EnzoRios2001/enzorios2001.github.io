@@ -77,6 +77,16 @@ async function obtenerHorariosPorEspecialista(id_especialista) {
   return data;
 }
 
+const DIAS_SEMANA = {
+  0: "Domingo",
+  1: "Lunes",
+  2: "Martes",
+  3: "Miércoles",
+  4: "Jueves",
+  5: "Viernes",
+  6: "Sábado"
+};
+
 function TurnoNuevo() {
   const [especialidades, setEspecialidades] = useState([]);
   const [especialidadSeleccionada, setEspecialidadSeleccionada] = useState("");
@@ -174,9 +184,7 @@ function TurnoNuevo() {
       setEnviando(false);
       setMostrarModal(false);
     } else {
-      setMensaje("¡Solicitud enviada correctamente!");
-      setFechaSeleccionada(null);
-      setHorarioSeleccionado("");
+      setMensaje("¡Solicitud enviada correctamente! Recuerda que el orden de atención es por orden de llegada.");
       setConfirmado(true);
     }
     setEnviando(false);
@@ -186,7 +194,9 @@ function TurnoNuevo() {
   const especialidadText = especialidades.find(e => String(e.id) === String(especialidadSeleccionada))?.especialidad || "";
   const especialistaText = especialistas.find(e => String(e.id_persona) === String(especialistaSeleccionado))?.nombre || "";
   const horarioObj = horarios.find(h => String(h.id_horario) === String(horarioSeleccionado));
-  const horarioText = horarioObj ? `Día ${horarioObj.dia_semana} - ${horarioObj.hora_inicio} a ${horarioObj.hora_fin}` : "";
+  const horarioText = horarioObj
+    ? `${DIAS_SEMANA[horarioObj.dia_semana] || `Día ${horarioObj.dia_semana}`} - ${horarioObj.hora_inicio} a ${horarioObj.hora_fin}`
+    : "";
   const fechaText = fechaSeleccionada ? fechaSeleccionada.toLocaleDateString() : "";
 
   // Limpia todos los campos y estados
@@ -258,21 +268,17 @@ function TurnoNuevo() {
           <option value="">Seleccione un horario</option>
           {horarios.map(h => (
             <option key={h.id_horario} value={h.id_horario}>
-              Día {h.dia_semana} - {h.hora_inicio} a {h.hora_fin}
+              {DIAS_SEMANA[h.dia_semana] || `Día ${h.dia_semana}`} - {h.hora_inicio} a {h.hora_fin}
             </option>
           ))}
         </select>
       </div>
-      {fechaSeleccionada && (
-        <div className="turno-nuevo-fecha">
-          <strong>Fecha seleccionada:</strong> {fechaSeleccionada.toLocaleDateString()}
-        </div>
-      )}
+      
       <div style={{ marginBottom: 16 }}>
         <button className="turno-nuevo-button" onClick={handleEnviarSolicitud} disabled={enviando}>
           {enviando ? "Enviando..." : "Solicitar turno"}
         </button>
-        {mensaje && (
+        {mensaje && !mostrarModal && (
           <div className={`turno-nuevo-mensaje ${mensaje.startsWith('¡') ? 'success' : 'error'}`}>
             {mensaje}
           </div>
@@ -301,16 +307,15 @@ function TurnoNuevo() {
               </>
             ) : (
               <>
-                <div className="turno-nuevo-modal-datos">
-                  <div><strong>Especialidad:</strong> {especialidadText}</div>
-                  <div><strong>Especialista:</strong> {especialistaText}</div>
-                  <div><strong>Fecha:</strong> {fechaText}</div>
-                  <div><strong>Horario:</strong> {horarioText}</div>
+                <div className="turno-nuevo-mensaje success" style={{marginBottom: '1rem'}}>
+                  {mensaje}
                 </div>
-                <button className="turno-nuevo-button" style={{marginTop:'1rem'}} onClick={limpiarTodo}>
-                  Cerrar
-                </button>
-                <button className="turno-nuevo-button" style={{marginTop:'0.5rem',background:'#f3f3f3',color:'#222',border:'1px solid #e0e0e0'}} onClick={()=>alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
+                <div className="turno-nuevo-modal-botones">
+                  <button className="turno-nuevo-button" style={{marginTop:'1rem'}} onClick={limpiarTodo}>
+                    Cerrar
+                  </button>
+                  <button className="turno-nuevo-button" style={{marginTop:'0.5rem',background:'#f3f3f3',color:'#222',border:'1px solid #e0e0e0'}} onClick={()=>alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
+                </div>
               </>
             )}
           </div>

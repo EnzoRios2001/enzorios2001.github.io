@@ -32,9 +32,9 @@ function Home() {
           <button><span>Especialistas</span></button>
           <button><span>Cirujanos</span></button>
           <button><span>Cardiólogo</span></button>
-          <button><span>Neurólogo</span></button>
-          <button><span>Dentistas</span></button>
-          <button><span>Fisioterapeuta</span></button>
+          <button><span>Emergencia</span></button>
+          <button><span>Nosotros</span></button>
+          <button><span>Ubicación</span></button>
           <button><span>Pediatra</span></button>
         </div>
       </div>

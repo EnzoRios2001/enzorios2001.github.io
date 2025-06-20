@@ -10,10 +10,10 @@ import Header from './components/Header';
 // Páginas
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Turno from './pages/Turno';
 import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
-import TurnoNuevo from './pages/TurnoNuevo'; // Asegúrate de que este componente esté creado
+import TurnoNuevo from './pages/TurnoNuevo'; 
+import HistorialMedico from './pages/HistorialMedico'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -97,14 +97,6 @@ function App() {
           }
         />
         <Route
-          path="/turno"
-          element={
-            <PrivateRoute>
-              <Turno />
-            </PrivateRoute>
-          }
-        />
-        <Route
           path="/estado-turnos"
           element={
             <PrivateRoute>
@@ -116,7 +108,7 @@ function App() {
           path="/historial"
           element={
             <PrivateRoute>
-              <div>Historial Médico (En construcción)</div>
+              <HistorialMedico />
             </PrivateRoute>
           }
         />
