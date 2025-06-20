@@ -98,46 +98,57 @@ header h1 {
 /* Hero Shortcuts Section */
 .hero-shortcuts {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: stretch;
   gap: 0;
-  background: #2563eb; /* azul de tu web */
+  background: #2563eb;
   padding: 0;
-  margin-bottom: 32px;
-  border-radius: 0;
-  overflow: hidden;
+  margin: 0;
+  width: 100%;
 }
-.hero-shortcuts button {
-  flex: 1 1 0;
-  background: transparent;
-  border: none;
-  color: #fff;
+.hero-shortcuts .shortcut-button {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 24px 0 16px 0;
-  font-size: 1.15rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-  border-right: 1px solid rgba(255,255,255,0.15);
+  padding: 20px 10px;
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  text-align: center;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
 }
-.hero-shortcuts button:last-child {
+.hero-shortcuts .shortcut-button:last-child {
   border-right: none;
 }
-.hero-shortcuts button:hover {
-  background: #1e40af;
+.hero-shortcuts .shortcut-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
-.icon-placeholder {
+.hero-shortcuts .shortcut-button .icon-placeholder {
   display: block;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   margin-bottom: 8px;
-  border: 2px solid #fff;
+  background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  opacity: 0.5;
-  /* Aquí puedes poner un SVG o icono real si lo deseas */
+}
+
+/* Para asegurar que el texto se vea bien en móviles */
+@media (max-width: 768px) {
+  .hero-shortcuts {
+    flex-direction: column;
+  }
+  
+  .hero-shortcuts .shortcut-button {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .hero-shortcuts .shortcut-button:last-child {
+    border-bottom: none;
+  }
 }
 
 /* Categories */

@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Turno from './pages/Turno';
+import EstadoTurnos from './pages/EstadoTurnos';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -105,7 +106,7 @@ function App() {
           path="/estado-turnos"
           element={
             <PrivateRoute>
-              <div>Estado de Turnos (En construcción)</div>
+              <EstadoTurnos />
             </PrivateRoute>
           }
         />
