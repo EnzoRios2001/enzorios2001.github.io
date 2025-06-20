@@ -14,7 +14,7 @@ function Login() {
     try {
       setLoading(true);
       setError(null);
-      
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
@@ -25,6 +25,30 @@ function Login() {
       if (data.user) {
         sessionStorage.setItem('usuario', data.user.email);
         navigate('/');
+      }
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Nueva función para registrarse con contraseña
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      setError(null);
+
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+
+      if (error) throw error;
+
+      if (data.user) {
+        setError('Registro exitoso. Revisa tu correo para confirmar la cuenta.');
       }
     } catch (error) {
       setError(error.message);
@@ -67,8 +91,17 @@ function Login() {
         <button type="submit" disabled={loading}>
           {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
         </button>
+        {/* Nuevo botón para registrarse */}
+        <button
+          type="button"
+          onClick={handleRegister}
+          disabled={loading}
+          style={{ marginLeft: '10px' }}
+        >
+          {loading ? 'Registrando...' : 'Registrarse'}
+        </button>
       </form>
-    </div>
+    </div >
   );
 }
 

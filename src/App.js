@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Turno from './pages/Turno';
+import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
 
 function App() {
@@ -90,7 +91,7 @@ function App() {
           path="/perfil"
           element={
             <PrivateRoute>
-              <div>Página de Perfil (En construcción)</div>
+              <Perfil />
             </PrivateRoute>
           }
         />
