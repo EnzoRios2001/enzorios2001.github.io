@@ -8,7 +8,7 @@ import './estilo.css';
 import Header from './components/Header';
 
 // Páginas
-import Home from './pages/index';
+import Home from './pages/Home';
 import Login from './pages/Login';
 import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
