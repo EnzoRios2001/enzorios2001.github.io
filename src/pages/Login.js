@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabase/client';
 import './Login.css';
@@ -136,6 +136,29 @@ function Login() {
             style={{ marginLeft: '10px' }}
           >
             Registrarse
+          </button>
+          {/* Recuperar contraseña */}
+          <button
+            type="button"
+            onClick={async () => {
+              if (!email) {
+                setError('Por favor, ingresa tu email para recuperar la contraseña.');
+                return;
+              }
+              setLoading(true);
+              setError(null);
+              const { error } = await supabase.auth.resetPasswordForEmail(email);
+              if (error) {
+                setError(error.message);
+              } else {
+                setError('Se ha enviado un correo para restablecer la contraseña.');
+              }
+              setLoading(false);
+            }}
+            disabled={loading}
+            style={{ marginTop: '10px', display: 'block', width: '100%', background: 'transparent', color: '#4f8cff', border: 'none', textDecoration: 'underline', fontWeight: 'bold', cursor: 'pointer' }}
+          >
+            ¿Desea recuperar su <span style={{ color: '#4f8cff' }}>contraseña</span>?
           </button>
         </form>
       ) : (

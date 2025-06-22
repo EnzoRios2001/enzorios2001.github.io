@@ -12,6 +12,7 @@ import Footer from './components/Footer';
 // Páginas
 import Home from './pages/Home';
 import Login from './pages/Login';
+import RecuperarPassword from './pages/RecuperarPassword';
 import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
 import TurnoNuevo from './pages/TurnoNuevo'; 
@@ -95,6 +96,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/recuperar-password" element={<RecuperarPassword />} />
         
         {/* Rutas protegidas */}
         <Route

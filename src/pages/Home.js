@@ -29,9 +29,11 @@ function Home() {
       <div className="categories">
         <div className="categories-grid">
           <Link to="/info-especialistas">
-            <button><span>General</span></button>
+            <button><span>Especialistas</span></button>
           </Link>
-          <button><span>Especialistas</span></button>
+          <Link to="/recuperar-password">
+          <button><span>Cambiar Contraseña</span></button>
+          </Link>
           <button><span>Cirujanos</span></button>
           <button><span>Cardiólogo</span></button>
           <button><span>Emergencia</span></button>
