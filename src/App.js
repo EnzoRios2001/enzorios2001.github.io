@@ -18,6 +18,12 @@ import TurnoNuevo from './pages/TurnoNuevo';
 import HistorialMedico from './pages/HistorialMedico'; 
 import InfoEspecialistas from './pages/InfoEspecialistas'; 
 
+// Redirección para GitHub Pages SPA
+if (window.location.search.startsWith('?redirect=')) {
+  const redirectTo = decodeURIComponent(window.location.search.replace('?redirect=', ''));
+  window.history.replaceState(null, '', redirectTo);
+}
+
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
