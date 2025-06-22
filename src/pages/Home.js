@@ -28,7 +28,9 @@ function Home() {
 
       <div className="categories">
         <div className="categories-grid">
-          <button><span>General</span></button>
+          <Link to="/info-especialistas">
+            <button><span>General</span></button>
+          </Link>
           <button><span>Especialistas</span></button>
           <button><span>Cirujanos</span></button>
           <button><span>Cardiólogo</span></button>
@@ -44,7 +46,7 @@ function Home() {
           <img src="/img/fondo2.jpg" alt="Consulta médica en escritorio" />
         </div>
       </div>
-      
+
       <div className="popular-header">
         <h3>¿Necesitas ayuda? Contactanos:</h3>
         <form className="contact-form" onSubmit={(e) => e.preventDefault()}>

@@ -27,6 +27,14 @@ header h1 {
   display: flex;
   align-items: center;
 }
+.titulo-clinica {
+  text-decoration: none;
+  color: black;
+}
+
+.titulo-clinica:hover {
+  opacity: 0.8;
+}
 .nav-btn {
   background: none;
   color: #374151;

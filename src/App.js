@@ -3,9 +3,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { supabase } from './supabase/client';
 import './App.css';
 import './estilo.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Componentes
 import Header from './components/Header';
+import Footer from './components/Footer';
 
 // Páginas
 import Home from './pages/Home';
@@ -14,6 +16,7 @@ import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
 import TurnoNuevo from './pages/TurnoNuevo'; 
 import HistorialMedico from './pages/HistorialMedico'; 
+import InfoEspecialistas from './pages/InfoEspecialistas'; 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -121,10 +124,19 @@ function App() {
             </PrivateRoute>
           }
         />
+          <Route
+          path="/info-especialistas"
+          element={
+            <PrivateRoute>
+              <InfoEspecialistas />
+            </PrivateRoute>
+          }
+        />
         
         {/* Ruta para páginas no encontradas */}
         <Route path="*" element={<div>Página no encontrada</div>} />
       </Routes>
+      <Footer />
     </div>
   );
 }

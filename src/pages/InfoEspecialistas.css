@@ -1,0 +1,79 @@
+/* Contenedor principal (si decides agregar más secciones luego) */
+.container-especialistas {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Grid para alinear títulos y valores de especialista */
+.especialista-info-grid {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    row-gap: 2px;
+    column-gap: 8px;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.especialista-info-label {
+    font-weight: bold;
+    color: #222;
+    text-align: left;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+}
+
+.especialista-info-value {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+}
+
+/* Card de cada especialista */
+.especialista-card {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    transition: box-shadow 0.3s ease;
+    overflow-x: auto;
+    max-width: 900px;
+    width: 100%;
+}
+
+.especialista-card:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10);
+}
+
+/* Chips de especialidades (títulos) */
+.especialista-specialty {
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 1px 4px 1px 0;
+    border-radius: 12px;
+    background-color: #e9ecef;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+/* Botón para solicitar turno */
+.especialista-card .btn {
+    margin-top: 6px;
+}
+
+/* Días y horarios */
+.especialista-card strong {
+    margin-top: 0;
+    display: inline;
+}
