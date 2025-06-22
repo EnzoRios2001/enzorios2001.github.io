@@ -7,38 +7,41 @@ const EstadoTurnos = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const fetchTurnos = async () => {
-        try {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (!user) {
-                setError('Por favor inicie sesión para ver sus turnos');
-                setLoading(false);
-                return;
-            }
 
-            const { data, error } = await supabase
-                .from('solicitudes_turno')
-                .select(`
-                    *,
-                    especialidades:id_especialidad (
-                        id,
-                        especialidad
-                    )
-                `)
-                .eq('id_paciente', user.id);
-
-            if (error) throw error;
-
-            setTurnos(data);
+    const getUserAndFetchTurnos = async () => {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session) {
+            setError('Por favor inicie sesión para ver sus turnos');
             setLoading(false);
-        } catch (error) {
-            setError('Error al cargar los turnos: ' + error.message);
-            setLoading(false);
+            return;
         }
+
+        const user = session.user;
+
+        const { data, error } = await supabase
+            .from('solicitudes_turno')
+            .select(`
+                *,
+                especialidades:id_especialidad (
+                    id,
+                    especialidad
+                )
+            `)
+            .eq('id_paciente', user.id);
+
+        if (error) {
+            setError('Error al cargar los turnos: ' + error.message);
+        } else {
+            setTurnos(data);
+        }
+
+        setLoading(false);
     };
 
+    getUserAndFetchTurnos();
+
     useEffect(() => {
-        fetchTurnos();
+        getUserAndFetchTurnos();
     }, []);
 
     const handleCancelar = async (turnoId) => {
@@ -55,7 +58,7 @@ const EstadoTurnos = () => {
                 user_id: user.id
             });
             if (error) throw error;
-            fetchTurnos();
+            getUserAndFetchTurnos();
         } catch (error) {
             alert('Error al cancelar el turno: ' + error.message);
         }

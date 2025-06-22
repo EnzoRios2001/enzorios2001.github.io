@@ -20,6 +20,8 @@ function Perfil() {
     const [direccionInput, setDireccionInput] = useState('');
     const [generoInput, setGeneroInput] = useState('');
     const [saving, setSaving] = useState(false);
+    const fecha_nacimiento_a_guardar = fechaNacimientoInput.trim() === '' ? null : fechaNacimientoInput;
+
 
     useEffect(() => {
         const fetchPerfil = async () => {
@@ -61,7 +63,10 @@ function Perfil() {
                     setPaciente(pacienteObj);
 
                     if (pacienteObj) {
-                        setFechaNacimientoInput(pacienteObj.fecha_nacimiento || '');
+                        setFechaNacimientoInput(pacienteObj.fecha_nacimiento
+                            ? new Date(pacienteObj.fecha_nacimiento).toISOString().split('T')[0]
+                            : ''
+                        );
                         setDireccionInput(pacienteObj.direccion || '');
                         setGeneroInput(pacienteObj.genero || '');
                     }
@@ -135,7 +140,7 @@ function Perfil() {
                     const { error: updatePacienteError } = await supabase
                         .from('pacientes')
                         .update({
-                            fecha_nacimiento: fechaNacimientoInput,
+                            fecha_nacimiento: fecha_nacimiento_a_guardar,
                             direccion: direccionInput,
                             genero: generoInput,
                         })
@@ -143,7 +148,7 @@ function Perfil() {
                     if (updatePacienteError) throw updatePacienteError;
                     setPaciente({
                         ...pacienteRow,
-                        fecha_nacimiento: fechaNacimientoInput,
+                        fecha_nacimiento: fecha_nacimiento_a_guardar,
                         direccion: direccionInput,
                         genero: generoInput,
                     });
@@ -158,7 +163,7 @@ function Perfil() {
                 const { error: updatePacienteError } = await supabase
                     .from('pacientes')
                     .update({
-                        fecha_nacimiento: fechaNacimientoInput,
+                        fecha_nacimiento: fecha_nacimiento_a_guardar,
                         direccion: direccionInput,
                         genero: generoInput,
                     })
@@ -166,7 +171,7 @@ function Perfil() {
                 if (updatePacienteError) throw updatePacienteError;
                 setPaciente({
                     ...paciente,
-                    fecha_nacimiento: fechaNacimientoInput,
+                    fecha_nacimiento: fecha_nacimiento_a_guardar,
                     direccion: direccionInput,
                     genero: generoInput,
                 });
@@ -256,7 +261,10 @@ function Perfil() {
                             disabled={saving}
                         />
                     ) : (
-                        <span className="perfil-info-value">{paciente?.fecha_nacimiento || 'No registrado'}</span>
+                        <span className="perfil-info-value">{paciente?.fecha_nacimiento
+                            ? new Date(paciente.fecha_nacimiento).toLocaleDateString()
+                            : 'No registrado'}
+                        </span>
                     )}
                 </div>
                 <div className="perfil-info-item">
