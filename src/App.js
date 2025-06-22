@@ -15,9 +15,9 @@ import Login from './pages/Login';
 import RecuperarPassword from './pages/RecuperarPassword';
 import Perfil from './pages/Perfil';
 import EstadoTurnos from './pages/EstadoTurnos';
-import TurnoNuevo from './pages/TurnoNuevo'; 
-import HistorialMedico from './pages/HistorialMedico'; 
-import InfoEspecialistas from './pages/InfoEspecialistas'; 
+import TurnoNuevo from './pages/TurnoNuevo';
+import HistorialMedico from './pages/HistorialMedico';
+import InfoEspecialistas from './pages/InfoEspecialistas';
 
 // Redirección para GitHub Pages SPA
 if (window.location.search.startsWith('?redirect=')) {
@@ -92,12 +92,12 @@ function App() {
   return (
     <div className="App">
       <Header isLoggedIn={isLoggedIn} userName={userName} handleLogout={handleLogout} />
-      
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/recuperar-password" element={<RecuperarPassword />} />
-        
+        <Route path="/info-especialistas" element={<InfoEspecialistas />} />
+
         {/* Rutas protegidas */}
         <Route
           path="/perfil"
@@ -123,7 +123,14 @@ function App() {
             </PrivateRoute>
           }
         />
-
+        <Route
+          path="/recuperar-password"
+          element={
+            <PrivateRoute>
+              <RecuperarPassword />
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/turno-nuevo"
           element={
@@ -132,15 +139,7 @@ function App() {
             </PrivateRoute>
           }
         />
-          <Route
-          path="/info-especialistas"
-          element={
-            <PrivateRoute>
-              <InfoEspecialistas />
-            </PrivateRoute>
-          }
-        />
-        
+
         {/* Ruta para páginas no encontradas */}
         <Route path="*" element={<div>Página no encontrada</div>} />
       </Routes>

@@ -29,7 +29,7 @@ function Home() {
       <div className="categories">
         <div className="categories-grid">
           <Link to="/info-especialistas">
-            <button><span>Especialistas</span></button>
+            <button><span>Nuestros Especialistas</span></button>
           </Link>
           <Link to="/recuperar-password">
           <button><span>Cambiar Contraseña</span></button>
