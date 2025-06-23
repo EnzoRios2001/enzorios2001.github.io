@@ -178,6 +178,23 @@ function TurnoNuevo() {
       setEnviando(false);
       return;
     }
+    // Verificar si el usuario tiene rol 'paciente'
+    const { data: rolesPaciente, error: errorRolesPaciente } = await supabase
+      .from('rol_persona')
+      .select('id, rol')
+      .eq('id', user.id)
+      .eq('rol', 'paciente');
+    if (errorRolesPaciente) {
+      setMensaje("Error al verificar el rol del usuario.");
+      setEnviando(false);
+      return;
+    }
+    if (!rolesPaciente || rolesPaciente.length === 0) {
+      setMensaje("No tienes permisos para solicitar un turno. Solo los usuarios con rol 'paciente' pueden hacerlo.");
+      setEnviando(false);
+      setMostrarModal(false);
+      return;
+    }
     const horario = horarios.find(h => String(h.id_horario) === String(horarioSeleccionado));
     const { error } = await supabase
       .from('solicitudes_turno')
@@ -279,11 +296,13 @@ function TurnoNuevo() {
           disabled={!especialistaSeleccionado || horarios.length === 0}
         >
           <option value="">Seleccione un horario</option>
-          {horarios.map(h => (
-            <option key={h.id_horario} value={h.id_horario}>
-              {h.hora_inicio} a {h.hora_fin}
-            </option>
-          ))}
+          {horarios
+            .filter(h => h.hora_inicio !== null && h.hora_fin !== null)
+            .map(h => (
+              <option key={h.id_horario} value={h.id_horario}>
+                {h.hora_inicio} a {h.hora_fin}
+              </option>
+            ))}
         </select>
       </div>
 
