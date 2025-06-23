@@ -19,7 +19,7 @@ async function obtenerEspecialidades() {
 
 // Obtiene especialistas para una especialidad desde la tabla 'espe_espe', 'especialistas' y 'persona'
 async function obtenerEspecialistasPorEspecialidad(id_especialidad) {
-  // Ajusta el join para que use la relación 'persona' en vez de 'id_persona'
+  // 1. Traer todos los especialistas de la especialidad
   const { data, error } = await supabase
     .from('espe_espe')
     .select(`
@@ -38,8 +38,20 @@ async function obtenerEspecialistasPorEspecialidad(id_especialidad) {
     console.error('Error obteniendo especialistas:', error);
     return [];
   }
+  // 2. Traer todos los id_persona con rol 'especialista' de la tabla rol_persona
+  const { data: roles, error: errorRoles } = await supabase
+    .from('rol_persona')
+    .select('id, rol')
+    .eq('rol', 'especialista');
+  if (errorRoles) {
+    console.error('Error obteniendo roles:', errorRoles);
+    return [];
+  }
+  const idsEspecialistas = new Set((roles || []).map(r => r.id));
+  // 3. Filtrar solo los especialistas cuyo id_persona esté en la lista de idsEspecialistas
+  const filtrados = data.filter(e => idsEspecialistas.has(e.id_persona));
   // Formatea para mostrar nombre completo
-  return data.map(e => {
+  return filtrados.map(e => {
     const especialista = e.especialistas;
     const persona = especialista && especialista.persona;
     return {
