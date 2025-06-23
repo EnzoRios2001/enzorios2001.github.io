@@ -176,7 +176,8 @@ function TurnoNuevo() {
           id_dia: horario ? horario.dia_semana : null,
           id_especialidad: especialidadSeleccionada || null,
           id_especialista: especialistaSeleccionado || null,
-          id_paciente: user.id
+          id_paciente: user.id,
+          id_horario: horarioSeleccionado || null // <-- Agregado: guardar id_horario
         }
       ]);
     if (error) {
