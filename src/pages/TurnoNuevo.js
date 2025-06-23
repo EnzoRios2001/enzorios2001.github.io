@@ -281,12 +281,12 @@ function TurnoNuevo() {
           <option value="">Seleccione un horario</option>
           {horarios.map(h => (
             <option key={h.id_horario} value={h.id_horario}>
-              {DIAS_SEMANA[h.dia_semana] || `Día ${h.dia_semana}`} - {h.hora_inicio} a {h.hora_fin}
+              {h.hora_inicio} a {h.hora_fin}
             </option>
           ))}
         </select>
       </div>
-      
+
       <div style={{ marginBottom: 16 }}>
         <button className="turno-nuevo-button" onClick={handleEnviarSolicitud} disabled={enviando}>
           {enviando ? "Enviando..." : "Solicitar turno"}
@@ -313,21 +313,21 @@ function TurnoNuevo() {
                   <button className="turno-nuevo-button" onClick={handleConfirmar} disabled={enviando}>
                     {enviando ? "Enviando..." : "Confirmar"}
                   </button>
-                  <button className="turno-nuevo-button" style={{background:'#eee',color:'#222'}} onClick={()=>setMostrarModal(false)} disabled={enviando}>
+                  <button className="turno-nuevo-button" style={{ background: '#eee', color: '#222' }} onClick={() => setMostrarModal(false)} disabled={enviando}>
                     Cancelar
                   </button>
                 </div>
               </>
             ) : (
               <>
-                <div className="turno-nuevo-mensaje success" style={{marginBottom: '1rem'}}>
+                <div className="turno-nuevo-mensaje success" style={{ marginBottom: '1rem' }}>
                   {mensaje}
                 </div>
                 <div className="turno-nuevo-modal-botones">
-                  <button className="turno-nuevo-button" style={{marginTop:'1rem'}} onClick={limpiarTodo}>
+                  <button className="turno-nuevo-button" style={{ marginTop: '1rem' }} onClick={limpiarTodo}>
                     Cerrar
                   </button>
-                  <button className="turno-nuevo-button" style={{marginTop:'0.5rem',background:'#f3f3f3',color:'#222',border:'1px solid #e0e0e0'}} onClick={()=>alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
+                  <button className="turno-nuevo-button" style={{ marginTop: '0.5rem', background: '#f3f3f3', color: '#222', border: '1px solid #e0e0e0' }} onClick={() => alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
                 </div>
               </>
             )}
