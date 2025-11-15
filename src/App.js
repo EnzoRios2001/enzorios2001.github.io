@@ -18,6 +18,7 @@ import EstadoTurnos from './pages/EstadoTurnos';
 import TurnoNuevo from './pages/TurnoNuevo';
 import HistorialMedico from './pages/HistorialMedico';
 import InfoEspecialistas from './pages/InfoEspecialistas';
+import Emergencia from './pages/Emergencia';
 
 // Redirección para GitHub Pages SPA
 if (window.location.search.startsWith('?redirect=')) {
@@ -97,6 +98,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/info-especialistas" element={<InfoEspecialistas />} />
+        <Route path="/emergencia" element={<React.Suspense fallback={<div>Cargando...</div>}><Emergencia /></React.Suspense>} />
 
         {/* Rutas protegidas */}
         <Route
