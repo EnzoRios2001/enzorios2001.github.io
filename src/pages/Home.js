@@ -121,9 +121,36 @@ function Home() {
       {/* Contacto moderno */}
       <section className="home-contact">
         <h3>¿Necesitas ayuda? Contáctanos</h3>
-        <form className="contact-form" onSubmit={e => e.preventDefault()}>
-          <input type="email" placeholder="Tu correo electrónico" required />
-          <textarea placeholder="Describe tu consulta" rows="4" required></textarea>
+        <form className="contact-form" onSubmit={async e => {
+          e.preventDefault();
+          const email = e.target.email.value;
+          const mensaje = e.target.mensaje.value;
+          try {
+            // Si el usuario está logeado, guardar el mensaje y activar notificación
+            if (window.sessionStorage.getItem('usuario')) {
+              const { error } = await supabase.from('contacto').insert([{ email, mensaje, leido: false }]);
+              if (error) {
+                alert('Error al enviar el mensaje. Intenta nuevamente.');
+              } else {
+                alert('Mensaje enviado correctamente. ¡Gracias por contactarnos!');
+                e.target.reset();
+              }
+            } else {
+              // Si no está logeado, solo guardar y enviar email, sin notificación
+              const { error } = await supabase.from('contacto').insert([{ email, mensaje }]);
+              if (error) {
+                alert('Error al enviar el mensaje. Intenta nuevamente.');
+              } else {
+                alert('Mensaje enviado correctamente. ¡Gracias por contactarnos!');
+                e.target.reset();
+              }
+            }
+          } catch (err) {
+            alert('Error inesperado.');
+          }
+        }}>
+          <input type="email" name="email" placeholder="Tu correo electrónico" required />
+          <textarea name="mensaje" placeholder="Describe tu consulta" rows="4" required></textarea>
           <button type="submit">Enviar</button>
         </form>
       </section>

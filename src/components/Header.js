@@ -1,13 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../estilo.css';
+import { supabase } from '../supabase/client';
 
 function Header({ isLoggedIn, userName, handleLogout }) {
   return (
     <header>
       <div className="header-container">
         <Link to="/" className="titulo-clinica">
-          <h1>Clinica MedioPelo</h1>
+          <h1>Clinica Salud+</h1>
         </Link>
         <div className="header-buttons">
           {isLoggedIn ? (
