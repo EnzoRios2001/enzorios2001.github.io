@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { supabase } from '../supabase/client';
+import jsPDF from 'jspdf';
 import "./turnonuevo.css";
 
 // Obtiene especialidades desde la tabla 'especialidades'
@@ -229,6 +230,75 @@ function TurnoNuevo() {
     : "";
   const fechaText = fechaSeleccionada ? fechaSeleccionada.toLocaleDateString() : "";
 
+  // Función para generar PDF del comprobante
+  const generarPDFComprobante = () => {
+    const doc = new jsPDF();
+    
+    // Configuración del documento
+    doc.setFontSize(20);
+    doc.setTextColor(37, 99, 235); // Color azul de la clínica
+    doc.text('Clínica Salud+', 105, 20, { align: 'center' });
+    
+    doc.setFontSize(16);
+    doc.setTextColor(0, 0, 0);
+    doc.text('Comprobante de Turno', 105, 35, { align: 'center' });
+    
+    // Línea divisoria
+    doc.setDrawColor(37, 99, 235);
+    doc.setLineWidth(0.5);
+    doc.line(20, 40, 190, 40);
+    
+    // Información del turno
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    
+    const fechaActual = new Date().toLocaleDateString();
+    const horaActual = new Date().toLocaleTimeString();
+    
+    doc.text(`Fecha de emisión: ${fechaActual}`, 20, 55);
+    doc.text(`Hora de emisión: ${horaActual}`, 20, 65);
+    
+    doc.text('Datos del Turno:', 20, 80);
+    doc.setFont(undefined, 'bold');
+    doc.text('Especialidad:', 20, 90);
+    doc.setFont(undefined, 'normal');
+    doc.text(especialidadText, 70, 90);
+    
+    doc.setFont(undefined, 'bold');
+    doc.text('Especialista:', 20, 100);
+    doc.setFont(undefined, 'normal');
+    doc.text(especialistaText, 70, 100);
+    
+    doc.setFont(undefined, 'bold');
+    doc.text('Fecha:', 20, 110);
+    doc.setFont(undefined, 'normal');
+    doc.text(fechaText, 70, 110);
+    
+    doc.setFont(undefined, 'bold');
+    doc.text('Horario:', 20, 120);
+    doc.setFont(undefined, 'normal');
+    doc.text(horarioText, 70, 120);
+    
+    // Información adicional
+    doc.setFontSize(10);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Importante:', 20, 140);
+    doc.text('• Presentarse 15 minutos antes del horario asignado', 20, 148);
+    doc.text('• Traer documento de identidad y obra social', 20, 156);
+    doc.text('• El orden de atención es por orden de llegada', 20, 164);
+    doc.text('• En caso de no poder asistir, cancelar con 24 horas de anticipación', 20, 172);
+    
+    // Pie de página
+    doc.setFontSize(8);
+    doc.setTextColor(150, 150, 150);
+    doc.text('Clínica Salud+ - Av. Mazzanti 550, Goya, Corrientes', 105, 280, { align: 'center' });
+    doc.text('Tel: (03777) 4X-XXXX - Email: info@clinicasaludplus.com', 105, 288, { align: 'center' });
+    
+    // Descargar el PDF
+    const fileName = `comprobante_turno_${fechaText.replace(/\//g, '-')}.pdf`;
+    doc.save(fileName);
+  };
+
   // Limpia todos los campos y estados
   const limpiarTodo = () => {
     setEspecialidadSeleccionada("");
@@ -351,7 +421,7 @@ function TurnoNuevo() {
                   <button className="turno-nuevo-button" onClick={limpiarTodo}>
                     Solicitar otro turno
                   </button>
-                  <button className="turno-nuevo-button" style={{ background: '#f3f3f3', color: '#222', border: '1px solid #e0e0e0' }} onClick={() => alert('Comprobante visual (solo muestra)')}>
+                  <button className="turno-nuevo-button" style={{ background: '#f3f3f3', color: '#222', border: '1px solid #e0e0e0' }} onClick={generarPDFComprobante}>
                     Descargar comprobante
                   </button>
                 </div>
