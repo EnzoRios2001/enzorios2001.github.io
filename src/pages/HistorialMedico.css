@@ -1,121 +1,333 @@
-.estado-turnos-container {
+/* Modern Historial Médico Styles */
+
+.historial-container-modern {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.page-header-modern {
+    text-align: center;
+    margin-bottom: 2.5rem;
     padding: 2rem;
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
 
-.estado-turnos-title {
-    color: #0d6efd;
+.header-icon-modern {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.page-title-modern {
+    color: #2563eb;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.page-subtitle-modern {
+    color: #64748b;
+    font-size: 1.1rem;
+    font-weight: 400;
+}
+
+/* Empty State */
+.empty-state-modern {
     text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2rem;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.empty-icon-modern {
+    font-size: 4rem;
+    margin-bottom: 1.5rem;
+    display: block;
+    opacity: 0.7;
+}
+
+.empty-title-modern {
+    color: #374151;
+    font-size: 1.5rem;
     font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
-.estado-turnos-table {
-    width: 100%;
-    background-color: white;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
-}
-
-.estado-turnos-table thead {
-    background-color: #0d6efd;
-    color: white;
-}
-
-.estado-turnos-table th {
-    padding: 1rem 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    border: none;
-}
-
-.estado-turnos-table td {
-    padding: 1rem 1.5rem;
-    text-align: center;
-    vertical-align: middle;
-    border-bottom: 1px solid #e9ecef;
-}
-
-.estado-turnos-table tbody tr:hover {
-    background-color: #f8f9fa;
-    transition: background-color 0.2s ease;
-}
-
-.estado-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 500;
-    font-size: 0.9rem;
-    display: inline-block;
-    min-width: 100px;
-}
-
-.estado-badge-pendiente {
-    background-color: #ffc107;
-    color: #000;
-}
-
-.estado-badge-aprobado {
-    background-color: #198754;
-    color: white;
-}
-
-.estado-badge-rechazado {
-    background-color: #dc3545;
-    color: white;
-}
-
-.estado-badge-cancelado {
-    background-color: #6c757d;
-    color: white;
-}
-
-.especialidad-cell {
-    color: #0d6efd;
-    font-weight: 500;
-}
-
-.btn-cancelar {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 0.5rem 1.5rem;
-    border-radius: 20px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.btn-cancelar:hover {
-    background-color: #bb2d3b;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
-}
-
-.sin-turnos {
-    text-align: center;
-    padding: 2rem;
-    background-color: #cfe2ff;
-    border-radius: 8px;
-    color: #084298;
+.empty-text-modern {
+    color: #6b7280;
     font-size: 1.1rem;
 }
 
-.loading-spinner {
+/* Loading State */
+.loading-container-modern {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
+    min-height: 400px;
 }
 
-.error-message {
-    background-color: #f8d7da;
-    color: #842029;
-    padding: 1rem;
-    border-radius: 8px;
+.loading-spinner-modern {
     text-align: center;
-    margin: 1rem 0;
+}
+
+.spinner-modern {
+    width: 50px;
+    height: 50px;
+    border: 4px solid #e5e7eb;
+    border-top: 4px solid #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+.loading-text-modern {
+    color: #6b7280;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error State */
+.error-container-modern {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.error-message-modern {
+    background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    max-width: 500px;
+}
+
+.error-icon-modern {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Table Styles */
+.table-container-modern {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.table-wrapper-modern {
+    overflow-x: auto;
+}
+
+.historial-table-modern {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.table-header-modern {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+}
+
+.table-header-modern th {
+    padding: 1.5rem 1rem;
+    text-align: left;
+    font-weight: 600;
+    color: white;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: none;
+}
+
+.table-header-modern th:first-child {
+    border-top-left-radius: 12px;
+}
+
+.table-header-modern th:last-child {
+    border-top-right-radius: 12px;
+}
+
+.table-body-modern .table-row-modern {
+    border-bottom: 1px solid #e5e7eb;
+    transition: all 0.2s ease;
+}
+
+.table-body-modern .table-row-modern:hover {
+    background-color: #f8fafc;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-cell-modern {
+    padding: 1.25rem 1rem;
+    vertical-align: middle;
+}
+
+.fecha-text-modern {
+    font-weight: 600;
+    color: #374151;
+}
+
+.hora-text-modern {
+    color: #6b7280;
+    font-weight: 500;
+}
+
+.especialista-text-modern {
+    color: #374151;
+    font-weight: 500;
+}
+
+.especialidad-text-modern {
+    color: #2563eb;
+    font-weight: 600;
+}
+
+.confirmado-text-modern {
+    color: #6b7280;
+}
+
+/* Status Badges */
+.estado-badge-modern {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+}
+
+.estado-badge-aprobado {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(16, 185, 129, 0.3);
+}
+
+.estado-badge-rechazado {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.3);
+}
+
+.estado-badge-cancelado {
+    background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(107, 114, 128, 0.3);
+}
+
+.estado-badge-completado {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+    color: white;
+    box-shadow: 0 2px 4px rgba(139, 92, 246, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .historial-container-modern {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+    }
+    
+    .page-header-modern {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .header-icon-modern {
+        font-size: 2.5rem;
+    }
+    
+    .page-title-modern {
+        font-size: 2rem;
+    }
+    
+    .page-subtitle-modern {
+        font-size: 1rem;
+    }
+    
+    .table-container-modern {
+        border-radius: 12px;
+    }
+    
+    .table-header-modern th {
+        padding: 1rem 0.75rem;
+        font-size: 0.85rem;
+    }
+    
+    .table-cell-modern {
+        padding: 1rem 0.75rem;
+    }
+    
+    /* Mobile table improvements */
+    .table-wrapper-modern {
+        margin: 0 -0.5rem;
+        padding: 0 0.5rem;
+    }
+    
+    .historial-table-modern {
+        font-size: 0.9rem;
+    }
+    
+    .estado-badge-modern {
+        min-width: 80px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-header-modern {
+        padding: 1rem;
+    }
+    
+    .header-icon-modern {
+        font-size: 2rem;
+    }
+    
+    .page-title-modern {
+        font-size: 1.75rem;
+    }
+    
+    .empty-state-modern {
+        padding: 3rem 1rem;
+    }
+    
+    .empty-icon-modern {
+        font-size: 3rem;
+    }
+    
+    .table-header-modern th {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.8rem;
+    }
+    
+    .table-cell-modern {
+        padding: 0.75rem 0.5rem;
+    }
+    
+    .fecha-text-modern,
+    .especialista-text-modern,
+    .especialidad-text-modern {
+        font-size: 0.9rem;
+    }
+    
+    .hora-text-modern,
+    .confirmado-text-modern {
+        font-size: 0.85rem;
+    }
 }

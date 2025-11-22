@@ -245,9 +245,10 @@ function TurnoNuevo() {
 
   return (
     <div className="turno-nuevo-container">
-      <h2>Selecciona un turno</h2>
-      <div style={{ marginBottom: 16 }}>
-        <label className="turno-nuevo-label">Especialidad:</label>
+      <h2>Solicitar Nuevo Turno</h2>
+      
+      <div className="form-group">
+        <label className="turno-nuevo-label">Especialidad</label>
         <select
           className="turno-nuevo-select"
           value={especialidadSeleccionada}
@@ -259,8 +260,9 @@ function TurnoNuevo() {
           ))}
         </select>
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <label className="turno-nuevo-label">Especialista:</label>
+      
+      <div className="form-group">
+        <label className="turno-nuevo-label">Especialista</label>
         <select
           className="turno-nuevo-select"
           value={especialistaSeleccionado}
@@ -272,23 +274,26 @@ function TurnoNuevo() {
             <option key={e.id_persona} value={e.id_persona}>{e.nombre}</option>
           ))}
         </select>
+        {loadingEspecialistas && <div className="loading-text">Cargando especialistas...</div>}
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <label className="turno-nuevo-label">Fecha:</label><br />
+      
+      <div className="form-group">
+        <label className="turno-nuevo-label">Fecha</label>
         <DatePicker
           className="turno-nuevo-datepicker"
           selected={fechaSeleccionada}
           onChange={setFechaSeleccionada}
           filterDate={isDiaTrabajo}
           placeholderText="Elige una fecha disponible"
-          dateFormat="yyyy-MM-dd"
+          dateFormat="dd/MM/yyyy"
           minDate={new Date()}
           disabled={!especialistaSeleccionado || loadingDias}
         />
-        {loadingDias && <div>Cargando días disponibles...</div>}
+        {loadingDias && <div className="loading-text">Cargando días disponibles...</div>}
       </div>
-      <div style={{ marginBottom: 16 }}>
-        <label className="turno-nuevo-label">Horario:</label>
+      
+      <div className="form-group">
+        <label className="turno-nuevo-label">Horario</label>
         <select
           className="turno-nuevo-select"
           value={horarioSeleccionado}
@@ -306,9 +311,9 @@ function TurnoNuevo() {
         </select>
       </div>
 
-      <div style={{ marginBottom: 16 }}>
-        <button className="turno-nuevo-button" onClick={handleEnviarSolicitud} disabled={enviando}>
-          {enviando ? "Enviando..." : "Solicitar turno"}
+      <div className="form-group">
+        <button className="turno-nuevo-button" onClick={handleEnviarSolicitud} disabled={enviando || !especialidadSeleccionada || !especialistaSeleccionado || !fechaSeleccionada || !horarioSeleccionado}>
+          {enviando ? "Enviando solicitud..." : "Solicitar turno"}
         </button>
         {mensaje && !mostrarModal && (
           <div className={`turno-nuevo-mensaje ${mensaje.startsWith('¡') ? 'success' : 'error'}`}>
@@ -321,7 +326,7 @@ function TurnoNuevo() {
           <div className="turno-nuevo-modal">
             {!confirmado ? (
               <>
-                <h3>Confirmar solicitud</h3>
+                <h3>Confirmar Solicitud</h3>
                 <div className="turno-nuevo-modal-datos">
                   <div><strong>Especialidad:</strong> {especialidadText}</div>
                   <div><strong>Especialista:</strong> {especialistaText}</div>
@@ -330,7 +335,7 @@ function TurnoNuevo() {
                 </div>
                 <div className="turno-nuevo-modal-botones">
                   <button className="turno-nuevo-button" onClick={handleConfirmar} disabled={enviando}>
-                    {enviando ? "Enviando..." : "Confirmar"}
+                    {enviando ? "Enviando..." : "Confirmar turno"}
                   </button>
                   <button className="turno-nuevo-button" style={{ background: '#eee', color: '#222' }} onClick={() => setMostrarModal(false)} disabled={enviando}>
                     Cancelar
@@ -339,14 +344,16 @@ function TurnoNuevo() {
               </>
             ) : (
               <>
-                <div className="turno-nuevo-mensaje success" style={{ marginBottom: '1rem' }}>
+                <div className="turno-nuevo-mensaje success" style={{ marginBottom: '1.5rem' }}>
                   {mensaje}
                 </div>
                 <div className="turno-nuevo-modal-botones">
-                  <button className="turno-nuevo-button" style={{ marginTop: '1rem' }} onClick={limpiarTodo}>
-                    Cerrar
+                  <button className="turno-nuevo-button" onClick={limpiarTodo}>
+                    Solicitar otro turno
                   </button>
-                  <button className="turno-nuevo-button" style={{ marginTop: '0.5rem', background: '#f3f3f3', color: '#222', border: '1px solid #e0e0e0' }} onClick={() => alert('Comprobante visual (solo muestra)')}>Descargar comprobante</button>
+                  <button className="turno-nuevo-button" style={{ background: '#f3f3f3', color: '#222', border: '1px solid #e0e0e0' }} onClick={() => alert('Comprobante visual (solo muestra)')}>
+                    Descargar comprobante
+                  </button>
                 </div>
               </>
             )}

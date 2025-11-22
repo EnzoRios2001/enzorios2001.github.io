@@ -103,64 +103,101 @@ function InfoEspecialistas() {
     };
 
     return (
-        <div className="container-especialistas">
-            <h2>Lista de Especialistas</h2>
-            {error && <div className="alert alert-danger">{error}</div>}
+        <div className="especialistas-container-modern">
+            <div className="page-header-modern">
+                <span className="header-icon-modern">👨‍⚕️</span>
+                <h2 className="page-title-modern">Especialistas</h2>
+                <p className="page-subtitle-modern">Conozca a nuestro equipo médico profesional</p>
+            </div>
+            
+            {error && (
+                <div className="error-container-modern">
+                    <div className="error-message-modern">
+                        <span className="error-icon-modern">⚠️</span>
+                        <p>{error}</p>
+                    </div>
+                </div>
+            )}
+            
             {especialistas.length === 0 && !error ? (
-                <div className="alert alert-info">No hay especialistas cargados.</div>
+                <div className="empty-state-modern">
+                    <span className="empty-icon-modern">👨‍⚕️</span>
+                    <h3 className="empty-title-modern">No hay especialistas disponibles</h3>
+                    <p className="empty-text-modern">Por favor, contacte con el administrador</p>
+                </div>
             ) : (
-                especialistas.map(especialista => (
-                    <div key={especialista.id} className="especialista-card">
-                        <div className="row align-items-center">
-                            <div className="col-md-10">
-                                <h4 className="text-center mb-4">{`${especialista.nombre} ${especialista.apellido}`}</h4>
-                                <div className="especialista-info-grid">
-                                    <div className="especialista-info-label">Nº Matricula:</div>
-                                    <div className="especialista-info-value">{especialista.matricula}</div>
-                                    <div className="especialista-info-label">Universidad:</div>
-                                    <div className="especialista-info-value">{especialista.universidad}</div>
-                                    <div className="especialista-info-label">Titulo:</div>
-                                    <div className="especialista-info-value">{especialista.titulo}</div>
-                                    <div className="especialista-info-label">Especialidades:</div>
-                                    <div className="especialista-info-value">
+                <div className="especialistas-grid-modern">
+                    {especialistas.map(especialista => (
+                        <div key={especialista.id} className="especialista-card-modern">
+                            <div className="card-header-modern">
+                                <h4 className="especialista-name-modern">
+                                    {`${especialista.nombre} ${especialista.apellido}`}
+                                </h4>
+                            </div>
+                            
+                            <div className="card-body-modern">
+                                <div className="info-item-modern">
+                                    <span className="info-label-modern">Nº Matricula:</span>
+                                    <span className="info-value-modern">{especialista.matricula}</span>
+                                </div>
+                                
+                                <div className="info-item-modern">
+                                    <span className="info-label-modern">Universidad:</span>
+                                    <span className="info-value-modern">{especialista.universidad}</span>
+                                </div>
+                                
+                                <div className="info-item-modern">
+                                    <span className="info-label-modern">Título:</span>
+                                    <span className="info-value-modern">{especialista.titulo}</span>
+                                </div>
+                                
+                                <div className="info-item-modern">
+                                    <span className="info-label-modern">Especialidades:</span>
+                                    <div className="specialties-container-modern">
                                         {especialista.especialidades.length > 0 ? (
                                             especialista.especialidades.map(e => (
-                                                <span key={e.id} className="especialista-specialty">
+                                                <span key={e.id} className="specialty-badge-modern">
                                                     {e.especialidad}
                                                 </span>
                                             ))
                                         ) : (
-                                            <span>Sin especialidades</span>
+                                            <span className="no-specialties-modern">Sin especialidades</span>
                                         )}
                                     </div>
-                                    <div className="especialista-info-label">Días y horarios:</div>
-                                    <div className="especialista-info-value">
+                                </div>
+                                
+                                <div className="info-item-modern">
+                                    <span className="info-label-modern">Días y horarios:</span>
+                                    <div className="schedules-container-modern">
                                         {especialista.horarios.length > 0 ? (
                                             especialista.horarios.map((h, idx) => (
-                                                <span key={idx} className="me-3">
-                                                    <span style={{ fontWeight: 500 }}>
+                                                <div key={idx} className="schedule-item-modern">
+                                                    <span className="schedule-day-modern">
                                                         {diasSemana[h.dia_semana]}:
-                                                    </span>{' '}
-                                                    {h.hora_inicio} - {h.hora_fin}
-                                                </span>
+                                                    </span>
+                                                    <span className="schedule-time-modern">
+                                                        {h.hora_inicio} - {h.hora_fin}
+                                                    </span>
+                                                </div>
                                             ))
                                         ) : (
-                                            <span>Sin horarios</span>
+                                            <span className="no-schedules-modern">Sin horarios</span>
                                         )}
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-2 d-flex align-items-center justify-content-end">
+                            
+                            <div className="card-footer-modern">
                                 <button
-                                    className="btn btn-primary especialista-card-btn"
+                                    className="solicitar-btn-modern"
                                     onClick={() => irATurno(especialista.id)}
                                 >
                                     Solicitar Turno
                                 </button>
                             </div>
                         </div>
-                    </div>
-                ))
+                    ))}
+                </div>
             )}
         </div>
     );

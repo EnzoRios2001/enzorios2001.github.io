@@ -1,63 +1,327 @@
+/* Modern Card Design */
 .turno-nuevo-container {
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 2rem 1.5rem;
-  background: #fff;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  font-family: 'Segoe UI', Arial, sans-serif;
+  max-width: 480px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  border: 1px solid #e2e8f0;
 }
+
+/* Header Styling */
 .turno-nuevo-container h2 {
-  font-size: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #222;
-  font-weight: 600;
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+  color: #1e293b;
+  font-weight: 700;
+  text-align: center;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
+
+/* Form Group Styling */
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+/* Label Styling */
 .turno-nuevo-label {
   display: block;
-  margin-bottom: 0.5rem;
-  color: #444;
-  font-size: 1rem;
+  margin-bottom: 0.75rem;
+  color: #374151;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
 }
-.turno-nuevo-select, .turno-nuevo-datepicker, .turno-nuevo-button {
+
+/* Input and Select Styling */
+.turno-nuevo-select, .turno-nuevo-datepicker {
   width: 100%;
-  padding: 0.5rem 0.75rem;
-  margin-bottom: 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 6px;
+  padding: 0.875rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
   font-size: 1rem;
-  background: #fafbfc;
-  color: #222;
+  background: #ffffff;
+  color: #1f2937;
   box-sizing: border-box;
+  transition: all 0.3s ease;
+  font-family: inherit;
 }
+
+.turno-nuevo-select:focus, .turno-nuevo-datepicker:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  transform: translateY(-1px);
+}
+
+.turno-nuevo-select:hover, .turno-nuevo-datepicker:hover {
+  border-color: #d1d5db;
+}
+
+/* Disabled State */
 .turno-nuevo-select:disabled, .turno-nuevo-datepicker:disabled {
-  background: #f3f3f3;
-  color: #aaa;
-}
-.turno-nuevo-button {
-  background: #2d8cff;
-  color: #fff;
-  border: none;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.turno-nuevo-button:disabled {
-  background: #b3d2fa;
+  background: #f3f4f6;
+  color: #9ca3af;
+  border-color: #e5e7eb;
   cursor: not-allowed;
+  opacity: 0.6;
 }
-.turno-nuevo-mensaje {
-  margin-top: 0.5rem;
-  font-size: 0.98rem;
-}
-.turno-nuevo-mensaje.success {
-  color: #1aaf5d;
-}
-.turno-nuevo-mensaje.error {
-  color: #e23c3c;
-}
-.turno-nuevo-fecha {
-  margin-top: 1rem;
+
+/* Button Styling */
+.turno-nuevo-button {
+  width: 100%;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
   font-size: 1rem;
-  color: #333;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(59, 130, 246, 0.2);
+  margin-top: 1rem;
+}
+
+.turno-nuevo-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(59, 130, 246, 0.3);
+}
+
+.turno-nuevo-button:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+}
+
+.turno-nuevo-button:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Message Styling */
+.turno-nuevo-mensaje {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.3s ease-out;
+}
+
+.turno-nuevo-mensaje.success {
+  background: #d1fae5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+}
+
+.turno-nuevo-mensaje.error {
+  background: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #fecaca;
+}
+
+/* Loading State */
+.loading-text {
+  color: #6b7280;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Modal Overlay */
+.turno-nuevo-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Modal Container */
+.turno-nuevo-modal {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 20px 25px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e5e7eb;
+  animation: slideUp 0.3s ease-out;
+}
+
+.turno-nuevo-modal h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Modal Data Display */
+.turno-nuevo-modal-datos {
+  background: #f8fafc;
+  border-radius: 12px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e2e8f0;
+}
+
+.turno-nuevo-modal-datos div {
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  color: #374151;
+}
+
+.turno-nuevo-modal-datos div:last-child {
+  margin-bottom: 0;
+}
+
+.turno-nuevo-modal-datos strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Modal Buttons */
+.turno-nuevo-modal-botones {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.turno-nuevo-modal-botones .turno-nuevo-button {
+  margin-top: 0;
+  flex: 1;
+}
+
+.turno-nuevo-modal-botones .turno-nuevo-button[style*="#eee"] {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.turno-nuevo-modal-botones .turno-nuevo-button[style*="#eee"]:hover {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* DatePicker Custom Styling */
+.react-datepicker {
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-family: inherit;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__header {
+  background: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+  border-radius: 12px 12px 0 0;
+}
+
+.react-datepicker__current-month {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.react-datepicker__day--selected {
+  background: #3b82f6;
+  border-radius: 8px;
+}
+
+.react-datepicker__day--keyboard-selected {
+  background: #1d4ed8;
+  border-radius: 8px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .turno-nuevo-container {
+    margin: 2rem 1rem;
+    padding: 2rem 1.5rem;
+  }
+  
+  .turno-nuevo-container h2 {
+    font-size: 1.5rem;
+  }
+  
+  .turno-nuevo-modal {
+    margin: 1rem;
+    width: calc(100% - 2rem);
+  }
+  
+  .turno-nuevo-modal-botones {
+    flex-direction: column;
+  }
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
 }

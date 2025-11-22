@@ -206,6 +206,137 @@
   color: #fff;
 }
 
+/* --- HOME HERO MODERNO MEJORADO --- */
+.home-hero-modern {
+  position: relative;
+  width: 100vw;
+  min-height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0;
+  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+}
+
+.home-hero-bg-modern {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.home-hero-bg-modern img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.4) blur(2px);
+  transform: scale(1.05);
+}
+
+.home-hero-overlay-modern {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.8) 100%);
+  z-index: 2;
+}
+
+.home-hero-content-modern {
+  position: relative;
+  z-index: 3;
+  color: #fff;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+.hero-text-container-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 600px;
+}
+
+.hero-title-modern {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  background: linear-gradient(135deg, #ffffff 0%, #e0e7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle-modern {
+  font-size: 1.25rem;
+  margin: 0;
+  color: #e0e7ff;
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+.home-hero-actions-modern {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.hero-action-btn-modern {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 32px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 2px solid transparent;
+  backdrop-filter: blur(10px);
+}
+
+.hero-action-btn-modern.primary {
+  background: rgba(255, 255, 255, 0.95);
+  color: #2563eb;
+}
+
+.hero-action-btn-modern.primary:hover {
+  background: #fff;
+  color: #1d4ed8;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.hero-action-btn-modern.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.hero-action-btn-modern.secondary:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.btn-icon-modern {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
 /* Accesos rápidos menos intrusivos */
 .home-shortcuts {
   display: flex;
@@ -293,6 +424,123 @@
   margin-bottom: 18px;
 }
 
+/* Contacto Moderno Mejorado */
+.home-contact-modern {
+  max-width: 600px;
+  margin: 60px auto 40px auto;
+  padding: 48px 32px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(37, 99, 235, 0.1);
+  border: 1px solid #e0e7ff;
+}
+
+.contact-container-modern {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.contact-header-modern {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.contact-icon-modern {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+  display: block;
+  filter: drop-shadow(0 2px 4px rgba(37, 99, 235, 0.2));
+}
+
+.contact-title-modern {
+  color: #1e293b;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 8px 0;
+}
+
+.contact-subtitle-modern {
+  color: #64748b;
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+.contact-form-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-label-modern {
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.form-input-modern,
+.form-textarea-modern {
+  padding: 12px 16px;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  background: #fff;
+}
+
+.form-input-modern:focus,
+.form-textarea-modern:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.form-input-modern:hover,
+.form-textarea-modern:hover {
+  border-color: #d1d5db;
+}
+
+.form-textarea-modern {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.submit-btn-modern {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  margin-top: 8px;
+}
+
+.submit-btn-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.4);
+}
+
+.submit-btn-modern:active {
+  transform: translateY(0);
+}
+
 @media (max-width: 900px) {
   .home-hero-content {
     padding: 32px 8vw 40px 8vw;
@@ -303,6 +551,21 @@
   }
   .home-categories {
     padding: 0 8px 24px 8px;
+  }
+  
+  /* Responsive for modern hero */
+  .home-hero-content-modern {
+    padding: 48px 24px;
+  }
+  .hero-title-modern {
+    font-size: 2.5rem;
+  }
+  .hero-subtitle-modern {
+    font-size: 1.1rem;
+  }
+  .home-contact-modern {
+    margin: 40px 20px;
+    padding: 32px 24px;
   }
 }
 @media (max-width: 600px) {
@@ -325,6 +588,38 @@
   }
   .home-categories {
     padding: 0 2px 16px 2px;
+  }
+  
+  /* Responsive for modern hero */
+  .home-hero-modern {
+    min-height: 400px;
+  }
+  .home-hero-content-modern {
+    padding: 32px 16px;
+    gap: 24px;
+  }
+  .hero-title-modern {
+    font-size: 2rem;
+  }
+  .hero-subtitle-modern {
+    font-size: 1rem;
+  }
+  .home-hero-actions-modern {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-action-btn-modern {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+  .home-contact-modern {
+    margin: 32px 16px;
+    padding: 24px 20px;
+  }
+  .contact-title-modern {
+    font-size: 1.25rem;
   }
 }
 body {

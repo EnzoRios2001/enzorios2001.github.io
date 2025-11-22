@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { supabase } from '../supabase/client';
 import './HistorialMedico.css';
 
-const EstadoTurnos = () => {
+const HistorialMedico = () => {
     const [turnos, setTurnos] = useState([]);
     const [personas, setPersonas] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -59,14 +59,22 @@ const EstadoTurnos = () => {
     }, []);
 
     if (loading) return (
-        <div className="loading-spinner">
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Cargando...</span>
+        <div className="loading-container-modern">
+            <div className="loading-spinner-modern">
+                <div className="spinner-modern"></div>
+                <p className="loading-text-modern">Cargando historial...</p>
             </div>
         </div>
     );
 
-    if (error) return <div className="error-message">{error}</div>;
+    if (error) return (
+        <div className="error-container-modern">
+            <div className="error-message-modern">
+                <span className="error-icon-modern">⚠️</span>
+                <p>{error}</p>
+            </div>
+        </div>
+    );
 
     // Función para buscar persona por id
     const getPersonaNombre = (id) => {
@@ -75,68 +83,84 @@ const EstadoTurnos = () => {
     };
 
     return (
-        <div className="estado-turnos-container">
-            <h2 className="estado-turnos-title">Historial del Paciente</h2>
+        <div className="historial-container-modern">
+            <div className="page-header-modern">
+                <span className="header-icon-modern">📚</span>
+                <h2 className="page-title-modern">Historial Médico</h2>
+                <p className="page-subtitle-modern">Registro de sus citas médicas</p>
+            </div>
             {turnos.length === 0 ? (
-                <div className="sin-turnos">
-                    No presenta historial.
+                <div className="empty-state-modern">
+                    <span className="empty-icon-modern">📖</span>
+                    <h3 className="empty-title-modern">No tiene historial médico</h3>
+                    <p className="empty-text-modern">Sus citas completadas aparecerán aquí</p>
                 </div>
             ) : (
-                <div className="table-responsive">
-                    <table className="estado-turnos-table">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Estado</th>
-                                <th>Especialista</th>
-                                <th>Especialidad</th>
-                                <th>Confirmado por</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {turnos
-                                .filter(turno => turno.estado !== "pendiente")
-                                .map((turno) => {
-                                    let confirmador = "---";
-                                    if (
-                                        turno.estado_solicitudes_turno &&
-                                        turno.estado_solicitudes_turno.length > 0
-                                    ) {
-                                        // Toma el último estado
-                                        const ultimoEstado = turno.estado_solicitudes_turno[turno.estado_solicitudes_turno.length - 1];
-                                        confirmador = getPersonaNombre(ultimoEstado.cambiado_por);
-                                    }
-                                    // Obtener nombre del especialista
-                                    const especialista = getPersonaNombre(turno.id_especialista);
+                <div className="table-container-modern">
+                    <div className="table-wrapper-modern">
+                        <table className="historial-table-modern">
+                            <thead className="table-header-modern">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Especialista</th>
+                                    <th>Especialidad</th>
+                                    <th>Confirmado por</th>
+                                </tr>
+                            </thead>
+                            <tbody className="table-body-modern">
+                                {turnos
+                                    .filter(turno => turno.estado !== "pendiente")
+                                    .map((turno) => {
+                                        let confirmador = "---";
+                                        if (
+                                            turno.estado_solicitudes_turno &&
+                                            turno.estado_solicitudes_turno.length > 0
+                                        ) {
+                                            // Toma el último estado
+                                            const ultimoEstado = turno.estado_solicitudes_turno[turno.estado_solicitudes_turno.length - 1];
+                                            confirmador = getPersonaNombre(ultimoEstado.cambiado_por);
+                                        }
+                                        // Obtener nombre del especialista
+                                        const especialista = getPersonaNombre(turno.id_especialista);
 
-                                    return (
-                                        <tr key={turno.id}>
-                                            <td>{new Date(turno.fecha_turno).toLocaleDateString()}</td>
-                                            <td>{turno.hora_turno}</td>
-                                            <td>
-                                                <span className={`estado-badge estado-badge-${turno.estado}`}>
-                                                    {turno.estado.toUpperCase()}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                {especialista}
-                                            </td>
-                                            <td className="especialidad-cell">
-                                                {turno.especialidades?.especialidad || 'No especificada'}
-                                            </td>
-                                            <td>
-                                                {confirmador}
-                                            </td>
-                                        </tr>
-                                    );
-                                })}
-                        </tbody>
-                    </table>
+                                        return (
+                                            <tr key={turno.id} className="table-row-modern">
+                                                <td className="table-cell-modern fecha-cell-modern">
+                                                    <span className="fecha-text-modern">
+                                                        {new Date(turno.fecha_turno).toLocaleDateString()}
+                                                    </span>
+                                                </td>
+                                                <td className="table-cell-modern hora-cell-modern">
+                                                    <span className="hora-text-modern">{turno.hora_turno}</span>
+                                                </td>
+                                                <td className="table-cell-modern estado-cell-modern">
+                                                    <span className={`estado-badge-modern estado-badge-${turno.estado}`}>
+                                                        {turno.estado.toUpperCase()}
+                                                    </span>
+                                                </td>
+                                                <td className="table-cell-modern especialista-cell-modern">
+                                                    <span className="especialista-text-modern">{especialista}</span>
+                                                </td>
+                                                <td className="table-cell-modern especialidad-cell-modern">
+                                                    <span className="especialidad-text-modern">
+                                                        {turno.especialidades?.especialidad || 'No especificada'}
+                                                    </span>
+                                                </td>
+                                                <td className="table-cell-modern confirmado-cell-modern">
+                                                    <span className="confirmado-text-modern">{confirmador}</span>
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>
     );
 };
 
-export default EstadoTurnos;
+export default HistorialMedico;

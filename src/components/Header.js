@@ -26,21 +26,29 @@ function Header({ isLoggedIn, userName, handleLogout }) {
   }, [menuOpen]);
 
   return (
-    <header>
-      <div className="header-container">
-        <div className="header-left">
-          <div className="menu-hamburguesa" onClick={() => setMenuOpen(true)}>
-            <span className="hamburguesa-linea"></span>
-            <span className="hamburguesa-linea"></span>
-            <span className="hamburguesa-linea"></span>
+    <header className="header-modern">
+      <div className="header-container-modern">
+        <div className="header-left-modern">
+          <div className="menu-hamburguesa-modern" onClick={() => setMenuOpen(true)}>
+            <span className="hamburguesa-linea-modern"></span>
+            <span className="hamburguesa-linea-modern"></span>
+            <span className="hamburguesa-linea-modern"></span>
           </div>
-          <Link to="/" className="titulo-clinica">
-            <h1>Clinica Salud+</h1>
+          <Link to="/" className="titulo-clinica-modern">
+            <div className="logo-modern">
+              <span className="logo-icon-modern">🏥</span>
+              <h1 className="logo-text-modern">Clinica Salud+</h1>
+            </div>
           </Link>
         </div>
-        <div className="header-buttons">
+        <div className="header-right-modern">
           {isLoggedIn ? (
-            <span id="userName">{userName}</span>
+            <div className="user-info-modern">
+              <span className="user-name-modern">{userName}</span>
+              <div className="user-avatar-modern">
+                <span className="avatar-icon-modern">👤</span>
+              </div>
+            </div>
           ) : null}
         </div>
       </div>
@@ -60,116 +68,276 @@ function Header({ isLoggedIn, userName, handleLogout }) {
         </ul>
       </nav>
       <style>{`
-        .header-container {
+        /* Header Modern Styling */
+        .header-modern {
+          background: #fff;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+          position: sticky;
+          top: 0;
+          z-index: 100;
+          backdrop-filter: blur(10px);
+        }
+        
+        .header-container-modern {
           display: flex;
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
-          width: 100%;
-          padding: 0 32px;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 24px;
+          min-height: 72px;
           box-sizing: border-box;
-          min-height: 64px;
         }
-        .header-left {
+        
+        .header-left-modern {
           display: flex;
           flex-direction: row;
           align-items: center;
-          gap: 18px;
+          gap: 20px;
         }
-        .menu-hamburguesa {
+        
+        .menu-hamburguesa-modern {
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          width: 40px;
-          height: 40px;
+          width: 44px;
+          height: 44px;
           cursor: pointer;
+          border-radius: 8px;
+          transition: background 0.2s ease;
+          padding: 8px;
         }
-        .hamburguesa-linea {
-          width: 28px;
-          height: 4px;
-          background: #1976d2;
-          margin: 4px 0;
+        
+        .menu-hamburguesa-modern:hover {
+          background: #f3f4f6;
+        }
+        
+        .hamburguesa-linea-modern {
+          width: 24px;
+          height: 3px;
+          background: #2563eb;
+          margin: 3px 0;
           border-radius: 2px;
-          transition: all 0.3s;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .titulo-clinica {
-          text-decoration: none;
-        }
-        .titulo-clinica h1 {
-          font-size: 2rem;
-          font-weight: 700;
-          color: #222;
-          margin: 0;
-          padding: 0;
-        }
-        .header-buttons {
+        
+        .logo-modern {
           display: flex;
           align-items: center;
           gap: 12px;
+          text-decoration: none;
         }
+        
+        .logo-icon-modern {
+          font-size: 1.5rem;
+          color: #2563eb;
+          background: #e0e7ff;
+          width: 40px;
+          height: 40px;
+          border-radius: 10px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
+        }
+        
+        .logo-modern:hover .logo-icon-modern {
+          transform: scale(1.05);
+        }
+        
+        .logo-text-modern {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #1e293b;
+          margin: 0;
+          padding: 0;
+          letter-spacing: -0.025em;
+        }
+        
+        .header-right-modern {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+        }
+        
+        .user-info-modern {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          background: #f8fafc;
+          padding: 8px 16px;
+          border-radius: 24px;
+          border: 1px solid #e2e8f0;
+          transition: all 0.2s ease;
+        }
+        
+        .user-info-modern:hover {
+          background: #e0e7ff;
+          border-color: #c7d2fe;
+        }
+        
+        .user-name-modern {
+          font-size: 0.95rem;
+          font-weight: 500;
+          color: #374151;
+          max-width: 120px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        
+        .user-avatar-modern {
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          background: #2563eb;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: transform 0.2s ease;
+        }
+        
+        .avatar-icon-modern {
+          font-size: 1rem;
+          color: #fff;
+        }
+        
+        .user-info-modern:hover .user-avatar-modern {
+          transform: scale(1.1);
+        }
+        
+        /* Enhanced Menu Lateral */
         .menu-lateral {
           position: fixed;
           top: 0;
           left: 0;
           height: 100vh;
-          width: 20vw;
-          min-width: 220px;
-          max-width: 400px;
+          width: 280px;
           background: #fff;
-          box-shadow: 2px 0 16px rgba(0,0,0,0.12);
+          box-shadow: 4px 0 20px rgba(0,0,0,0.15);
           z-index: 2000;
           transform: translateX(-100%);
           transition: transform 0.35s cubic-bezier(0.4,0,0.2,1);
-          border-top-right-radius: 16px;
-          border-bottom-right-radius: 16px;
-          padding-top: 60px;
+          border-top-right-radius: 20px;
+          border-bottom-right-radius: 20px;
+          padding-top: 80px;
+          overflow-y: auto;
         }
+        
         .menu-lateral.open {
           transform: translateX(0);
         }
+        
         .menu-lateral ul {
           list-style: none;
           margin: 0;
           padding: 0;
         }
+        
         .menu-lateral li {
           margin: 0;
           padding: 0;
+          border-bottom: 1px solid #f1f5f9;
         }
+        
+        .menu-lateral li:last-child {
+          border-bottom: none;
+        }
+        
         .menu-btn {
-          display: block;
+          display: flex;
+          align-items: center;
           width: 100%;
-          padding: 16px 32px;
+          padding: 16px 24px;
           text-align: left;
           background: none;
           border: none;
-          color: #1976d2;
-          font-size: 1.1rem;
+          color: #374151;
+          font-size: 1rem;
           font-weight: 500;
           cursor: pointer;
           text-decoration: none;
-          transition: background 0.2s, color 0.2s;
+          transition: all 0.2s ease;
+          position: relative;
         }
+        
         .menu-btn:hover {
-          background: #e3f2fd;
-          color: #0d47a1;
+          background: #f8fafc;
+          color: #2563eb;
+          padding-left: 28px;
         }
+        
+        .menu-btn::before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+          width: 4px;
+          height: 0;
+          background: #2563eb;
+          transition: height 0.2s ease;
+        }
+        
+        .menu-btn:hover::before {
+          height: 60%;
+        }
+        
         .menu-lateral-overlay {
           position: fixed;
           top: 0;
           left: 0;
           width: 100vw;
           height: 100vh;
-          background: rgba(0,0,0,0.15);
+          background: rgba(0,0,0,0.4);
+          backdrop-filter: blur(2px);
           z-index: 1500;
           opacity: 0;
           pointer-events: none;
-          transition: opacity 0.3s;
+          transition: opacity 0.3s ease;
         }
+        
         .menu-lateral-overlay.open {
           opacity: 1;
           pointer-events: auto;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+          .header-container-modern {
+            padding: 0 16px;
+            min-height: 64px;
+          }
+          
+          .logo-text-modern {
+            font-size: 1.25rem;
+          }
+          
+          .user-name-modern {
+            display: none;
+          }
+          
+          .menu-lateral {
+            width: 260px;
+          }
+        }
+        
+        @media (max-width: 480px) {
+          .header-container-modern {
+            padding: 0 12px;
+          }
+          
+          .logo-icon-modern {
+            width: 36px;
+            height: 36px;
+            font-size: 1.25rem;
+          }
+          
+          .logo-text-modern {
+            font-size: 1.125rem;
+          }
         }
       `}</style>
     </header>

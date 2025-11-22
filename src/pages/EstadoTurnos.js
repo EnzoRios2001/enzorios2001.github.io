@@ -65,61 +65,89 @@ const EstadoTurnos = () => {
     };
 
     if (loading) return (
-        <div className="loading-spinner">
-            <div className="spinner-border text-primary" role="status">
-                <span className="visually-hidden">Cargando...</span>
+        <div className="loading-container-modern">
+            <div className="loading-spinner-modern">
+                <div className="spinner-modern"></div>
+                <p className="loading-text-modern">Cargando turnos...</p>
             </div>
         </div>
     );
 
-    if (error) return <div className="error-message">{error}</div>;
+    if (error) return (
+        <div className="error-container-modern">
+            <div className="error-message-modern">
+                <span className="error-icon-modern">⚠️</span>
+                <p>{error}</p>
+            </div>
+        </div>
+    );
 
     return (
-        <div className="estado-turnos-container">
-            <h2 className="estado-turnos-title">Estado de sus Turnos</h2>
+        <div className="estado-turnos-container-modern">
+            <div className="page-header-modern">
+                <span className="header-icon-modern">📅</span>
+                <h2 className="page-title-modern">Estado de sus Turnos</h2>
+                <p className="page-subtitle-modern">Gestione sus citas médicas</p>
+            </div>
             {turnos.length === 0 ? (
-                <div className="sin-turnos">
-                    No tiene solicitudes de turnos pendientes.
+                <div className="empty-state-modern">
+                    <span className="empty-icon-modern">📋</span>
+                    <h3 className="empty-title-modern">No tiene turnos pendientes</h3>
+                    <p className="empty-text-modern">Puede solicitar un nuevo turno cuando lo desee</p>
+                    <a href="/turno-nuevo" className="empty-action-modern">
+                        Solicitar turno
+                    </a>
                 </div>
             ) : (
-                <div className="table-responsive">
-                    <table className="estado-turnos-table">
-                        <thead>
-                            <tr>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Estado</th>
-                                <th>Especialidad</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {turnos.map((turno) => (
-                                <tr key={turno.id}>
-                                    <td>{new Date(turno.fecha_turno).toLocaleDateString()}</td>
-                                    <td>{turno.hora_turno}</td>
-                                    <td>
-                                        <span className={`estado-badge estado-badge-${turno.estado}`}>
-                                            {turno.estado.toUpperCase()}
-                                        </span>
-                                    </td>
-                                    <td className="especialidad-cell">
-                                        {turno.especialidades?.especialidad || 'No especificada'}
-                                    </td>
-                                    <td>
-                                        {(turno.estado === 'pendiente' || turno.estado === 'aprobado') && (
-                                            <button
-                                                onClick={() => handleCancelar(turno.id)}
-                                                className="btn-cancelar"
-                                            >
-                                                Cancelar
-                                            </button>
-                                        )}
-                                    </td>
+                <div className="table-container-modern">
+                    <div className="table-wrapper-modern">
+                        <table className="estado-turnos-table-modern">
+                            <thead className="table-header-modern">
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Hora</th>
+                                    <th>Estado</th>
+                                    <th>Especialidad</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="table-body-modern">
+                                {turnos.map((turno) => (
+                                    <tr key={turno.id} className="table-row-modern">
+                                        <td className="table-cell-modern fecha-cell-modern">
+                                            <span className="fecha-text-modern">
+                                                {new Date(turno.fecha_turno).toLocaleDateString()}
+                                            </span>
+                                        </td>
+                                        <td className="table-cell-modern hora-cell-modern">
+                                            <span className="hora-text-modern">{turno.hora_turno}</span>
+                                        </td>
+                                        <td className="table-cell-modern estado-cell-modern">
+                                            <span className={`estado-badge-modern estado-badge-${turno.estado}`}>
+                                                {turno.estado.toUpperCase()}
+                                            </span>
+                                        </td>
+                                        <td className="table-cell-modern especialidad-cell-modern">
+                                            <span className="especialidad-text-modern">
+                                                {turno.especialidades?.especialidad || 'No especificada'}
+                                            </span>
+                                        </td>
+                                        <td className="table-cell-modern acciones-cell-modern">
+                                            {(turno.estado === 'pendiente' || turno.estado === 'aprobado') && (
+                                                <button
+                                                    onClick={() => handleCancelar(turno.id)}
+                                                    className="btn-cancelar-modern"
+                                                >
+                                                    <span className="btn-icon-modern">❌</span>
+                                                    Cancelar
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             )}
         </div>
