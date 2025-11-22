@@ -45,31 +45,50 @@ function RecuperarPassword() {
   };
 
   return (
-    <div className="login-container">
-      <h2>Restablecer Contraseña</h2>
-      {error && <div className="error-message">{error}</div>}
-      {success ? (
-        <div className="error-message" style={{ color: 'green' }}>
-          Contraseña actualizada correctamente. Redirigiendo...
+    <div className="login-container-modern">
+      <div className="login-card-modern">
+        <div className="login-header-modern">
+          <span className="header-icon-modern">🔑</span>
+          <h2 className="page-title-modern">Restablecer Contraseña</h2>
+          <p className="page-subtitle-modern">Ingrese su nueva contraseña segura</p>
         </div>
-      ) : (
-        <form onSubmit={handlePasswordReset}>
-          <div className="form-group">
-            <label htmlFor="newPassword">Nueva Contraseña:</label>
-            <input
-              type="password"
-              id="newPassword"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
+        
+        {error && (
+          <div className="error-message-modern">
+            <span className="error-icon-modern">⚠️</span>
+            <p>{error}</p>
           </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Actualizando...' : 'Actualizar Contraseña'}
-          </button>
-        </form>
-      )}
+        )}
+        
+        {success ? (
+          <div className="success-message-modern">
+            <span className="success-icon-modern">✅</span>
+            <p>Contraseña actualizada correctamente. Redirigiendo...</p>
+          </div>
+        ) : (
+          <form className="login-form-modern" onSubmit={handlePasswordReset}>
+            <div className="form-group-modern">
+              <label htmlFor="newPassword" className="form-label-modern">Nueva Contraseña</label>
+              <input
+                type="password"
+                id="newPassword"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="Ingrese su nueva contraseña"
+              />
+            </div>
+            
+            <div className="form-actions-modern">
+              <button type="submit" disabled={loading} className="btn-primary-modern">
+                {loading ? '🔄 Actualizando...' : '🔒 Actualizar Contraseña'}
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

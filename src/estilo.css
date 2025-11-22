@@ -337,6 +337,109 @@
   line-height: 1;
 }
 
+/* Map Widget Styles */
+.map-widget-container-modern {
+  position: fixed;
+  top: 120px;
+  left: 24px;
+  z-index: 100;
+  max-width: 280px;
+}
+
+.map-widget-modern {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #e0e7ff;
+}
+
+.map-widget-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.15);
+  border-color: #2563eb;
+}
+
+.map-widget-header-modern {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.map-widget-icon-modern {
+  font-size: 1.4rem;
+  color: #2563eb;
+}
+
+.map-widget-title-modern {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.map-widget-content-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.map-placeholder-modern {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.map-pin-modern {
+  font-size: 1.8rem;
+  color: #dc2626;
+  flex-shrink: 0;
+}
+
+.map-address-modern {
+  flex: 1;
+}
+
+.map-street-modern {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  margin: 0 0 2px 0;
+}
+
+.map-city-modern {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.map-directions-modern {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  border-radius: 8px;
+  color: white;
+}
+
+.directions-text-modern {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.directions-arrow-modern {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
 /* Accesos rápidos menos intrusivos */
 .home-shortcuts {
   display: flex;
@@ -1435,4 +1538,28 @@ footer li {
 
 #horarioForm {
   min-width: 0;
+}
+
+/* Map Widget Responsive */
+@media (max-width: 768px) {
+  .map-widget-container-modern {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-width: none;
+    margin: 20px;
+    margin-bottom: 0;
+  }
+  
+  .map-widget-modern {
+    padding: 16px;
+  }
+  
+  .map-widget-title-modern {
+    font-size: 1rem;
+  }
+  
+  .directions-text-modern {
+    font-size: 0.8rem;
+  }
 }

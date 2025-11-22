@@ -92,137 +92,176 @@ function Login() {
   };
 
   return (
-    <div className="login-container">
-      <h2>{registerMode ? 'Registrarse' : 'Iniciar Sesión'}</h2>
-      {error && (
-        <div className="error-message">
-          {error}
+    <div className="login-container-modern">
+      <div className="login-card-modern">
+        <div className="login-header-modern">
+          <span className="header-icon-modern">🔐</span>
+          <h2 className="page-title-modern">{registerMode ? 'Registrarse' : 'Iniciar Sesión'}</h2>
+          <p className="page-subtitle-modern">
+            {registerMode ? 'Crea tu cuenta para acceder al sistema' : 'Accede a tu cuenta de paciente'}
+          </p>
         </div>
-      )}
-      {!registerMode ? (
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
+        
+        {error && (
+          <div className="error-message-modern">
+            <span className="error-icon-modern">⚠️</span>
+            <p>{error}</p>
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setRegisterMode(true);
-              setError(null);
-            }}
-            disabled={loading}
-            style={{ marginLeft: '10px' }}
-          >
-            Registrarse
-          </button>
-          {/* Recuperar contraseña */}
-          <button
-            type="button"
-            onClick={async () => {
-              if (!email) {
-                setError('Por favor, ingresa tu email para recuperar la contraseña.');
-                return;
-              }
-              setLoading(true);
-              setError(null);
-              const { error } = await supabase.auth.resetPasswordForEmail(email);
-              if (error) {
-                setError(error.message);
-              } else {
-                setError('Se ha enviado un correo para restablecer la contraseña.');
-              }
-              setLoading(false);
-            }}
-            disabled={loading}
-            style={{ marginTop: '10px', display: 'block', width: '100%', background: 'transparent', color: '#4f8cff', border: 'none', textDecoration: 'underline', fontWeight: 'bold', cursor: 'pointer' }}
-          >
-            ¿Desea recuperar su <span style={{ color: '#4f8cff' }}>contraseña</span>?
-          </button>
-        </form>
-      ) : (
-        <form onSubmit={handleRegister}>
-          <div className="form-group">
-            <label htmlFor="nombre">Nombre:</label>
-            <input
-              type="text"
-              id="nombre"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="apellido">Apellido:</label>
-            <input
-              type="text"
-              id="apellido"
-              value={apellido}
-              onChange={(e) => setApellido(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Contraseña:</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              disabled={loading}
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Registrando...' : 'Registrarse'}
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setRegisterMode(false);
-              setError(null);
-            }}
-            disabled={loading}
-            style={{ marginLeft: '10px' }}
-          >
-            Volver a iniciar sesión
-          </button>
-        </form>
-      )}
+        )}
+        
+        {!registerMode ? (
+          <form className="login-form-modern" onSubmit={handleSubmit}>
+            <div className="form-group-modern">
+              <label htmlFor="email" className="form-label-modern">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="tu@email.com"
+              />
+            </div>
+            
+            <div className="form-group-modern">
+              <label htmlFor="password" className="form-label-modern">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="Ingrese su contraseña"
+              />
+            </div>
+            
+            <div className="form-actions-modern">
+              <button type="submit" disabled={loading} className="btn-primary-modern">
+                {loading ? 'Iniciando sesión...' : 'Iniciar Sesión'}
+              </button>
+            </div>
+            
+            <div className="form-links-modern">
+              <button
+                type="button"
+                onClick={() => {
+                  setRegisterMode(true);
+                  setError(null);
+                }}
+                disabled={loading}
+                className="link-button-modern"
+              >
+                ¿No tienes cuenta? Regístrate aquí
+              </button>
+              
+              <button
+                type="button"
+                onClick={async () => {
+                  if (!email) {
+                    setError('Por favor, ingresa tu email para recuperar la contraseña.');
+                    return;
+                  }
+                  setLoading(true);
+                  setError(null);
+                  const { error } = await supabase.auth.resetPasswordForEmail(email);
+                  if (error) {
+                    setError(error.message);
+                  } else {
+                    setError('Se ha enviado un correo para restablecer la contraseña.');
+                  }
+                  setLoading(false);
+                }}
+                disabled={loading}
+                className="link-button-modern secondary"
+              >
+                ¿Olvidaste tu contraseña?
+              </button>
+            </div>
+          </form>
+        ) : (
+          <form className="login-form-modern" onSubmit={handleRegister}>
+            <div className="form-group-modern">
+              <label htmlFor="nombre" className="form-label-modern">Nombre</label>
+              <input
+                type="text"
+                id="nombre"
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="Ingrese su nombre"
+              />
+            </div>
+            
+            <div className="form-group-modern">
+              <label htmlFor="apellido" className="form-label-modern">Apellido</label>
+              <input
+                type="text"
+                id="apellido"
+                value={apellido}
+                onChange={(e) => setApellido(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="Ingrese su apellido"
+              />
+            </div>
+            
+            <div className="form-group-modern">
+              <label htmlFor="email" className="form-label-modern">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="tu@email.com"
+              />
+            </div>
+            
+            <div className="form-group-modern">
+              <label htmlFor="password" className="form-label-modern">Contraseña</label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                disabled={loading}
+                className="form-input-modern"
+                placeholder="Cree una contraseña segura"
+              />
+            </div>
+            
+            <div className="form-actions-modern">
+              <button type="submit" disabled={loading} className="btn-success-modern">
+                {loading ? '👤 Registrando...' : 'Registrarse'}
+              </button>
+            </div>
+            
+            <div className="form-links-modern">
+              <button
+                type="button"
+                onClick={() => {
+                  setRegisterMode(false);
+                  setError(null);
+                }}
+                disabled={loading}
+                className="link-button-modern"
+              >
+                ¿Ya tienes cuenta? Inicia sesión aquí
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
     </div>
   );
 }

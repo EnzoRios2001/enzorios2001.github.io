@@ -43,13 +43,23 @@ function Header({ isLoggedIn, userName, handleLogout }) {
         </div>
         <div className="header-right-modern">
           {isLoggedIn ? (
-            <div className="user-info-modern">
-              <span className="user-name-modern">{userName}</span>
-              <div className="user-avatar-modern">
-                <span className="avatar-icon-modern">👤</span>
+            <div className="auth-container-modern">
+              <div className="user-info-modern">
+                <span className="user-name-modern">{userName}</span>
+                <div className="user-avatar-modern">
+                  <span className="avatar-icon-modern">👤</span>
+                </div>
               </div>
+              <button className="logout-btn-modern" onClick={handleLogout} title="Cerrar sesión">
+                <span className="logout-icon-modern">🚫</span>
+                <span className="logout-text-modern">Cerrar sesión</span>
+              </button>
             </div>
-          ) : null}
+          ) : (
+            <Link to="/login" className="login-btn-modern">
+              <span className="login-text-modern">Iniciar sesión</span>
+            </Link>
+          )}
         </div>
       </div>
       <div className={`menu-lateral-overlay${menuOpen ? ' open' : ''}`} onClick={() => setMenuOpen(false)}></div>
@@ -60,11 +70,6 @@ function Header({ isLoggedIn, userName, handleLogout }) {
           <li><Link to="/info-especialistas" className="menu-btn" onClick={() => setMenuOpen(false)}>Especialistas</Link></li>
           <li><Link to="/emergencia" className="menu-btn" onClick={() => setMenuOpen(false)}>Emergencia</Link></li>
           <li><Link to="/recuperar-password" className="menu-btn" onClick={() => setMenuOpen(false)}>Cambiar Contraseña</Link></li>
-          {isLoggedIn ? (
-            <li><button className="menu-btn" onClick={() => { handleLogout(); setMenuOpen(false); }}>Cerrar sesión</button></li>
-          ) : (
-            <li><Link to="/login" className="menu-btn" onClick={() => setMenuOpen(false)}>Iniciar sesión</Link></li>
-          )}
         </ul>
       </nav>
       <style>{`
@@ -162,6 +167,12 @@ function Header({ isLoggedIn, userName, handleLogout }) {
           gap: 16px;
         }
         
+        .auth-container-modern {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+        
         .user-info-modern {
           display: flex;
           align-items: center;
@@ -206,6 +217,69 @@ function Header({ isLoggedIn, userName, handleLogout }) {
         
         .user-info-modern:hover .user-avatar-modern {
           transform: scale(1.1);
+        }
+        
+        .logout-btn-modern {
+          background: #dc2626;
+          border: 2px solid #dc2626;
+          padding: 8px 16px;
+          border-radius: 24px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-left: 4px;
+          color: white;
+          font-weight: 500;
+          font-size: 0.9rem;
+        }
+        
+        .logout-btn-modern:hover {
+          background: #b91c1c;
+          border-color: #b91c1c;
+          transform: scale(1.05);
+          box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
+        
+        .logout-icon-modern {
+          font-size: 1.1rem;
+          color: #fff;
+          font-weight: bold;
+        }
+        
+        .logout-text-modern {
+          font-size: 0.85rem;
+          color: #fff;
+          white-space: nowrap;
+        }
+        
+        .login-btn-modern {
+          display: flex;
+          align-items: center;
+          background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+          color: white;
+          padding: 10px 20px;
+          border-radius: 24px;
+          text-decoration: none;
+          font-weight: 500;
+          font-size: 0.9rem;
+          transition: all 0.2s ease;
+          border: none;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(37, 99, 235, 0.2);
+        }
+        
+        .login-btn-modern:hover {
+          background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+        
+        .login-text-modern {
+          font-size: 0.9rem;
+          white-space: nowrap;
         }
         
         /* Enhanced Menu Lateral */
@@ -316,6 +390,30 @@ function Header({ isLoggedIn, userName, handleLogout }) {
           }
           
           .user-name-modern {
+            display: none;
+          }
+          
+          .login-text-modern {
+            display: inline;
+            font-size: 0.8rem;
+          }
+          
+          .login-btn-modern {
+            padding: 10px 16px;
+            font-size: 0.85rem;
+          }
+          
+          .auth-container-modern {
+            gap: 6px;
+          }
+          
+          .logout-btn-modern {
+            padding: 8px;
+            border-radius: 50%;
+            margin-left: 2px;
+          }
+          
+          .logout-text-modern {
             display: none;
           }
           

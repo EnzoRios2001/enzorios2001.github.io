@@ -186,125 +186,178 @@ function Perfil() {
         }
     };
 
-    if (loading) return <div>Cargando perfil...</div>;
-    if (error) return <div style={{ color: 'red' }}>{error}</div>;
+    if (loading) return (
+        <div className="loading-container-modern">
+            <div className="loading-spinner-modern">
+                <div className="spinner-modern"></div>
+                <p className="loading-text-modern">Cargando perfil...</p>
+            </div>
+        </div>
+    );
+    if (error) return (
+        <div className="error-container-modern">
+            <div className="error-message-modern">
+                <span className="error-icon-modern">⚠️</span>
+                <p>{error}</p>
+            </div>
+        </div>
+    );
 
     return (
-        <div className="perfil-container">
-            <h2 className="perfil-title">Mi Perfil</h2>
-            <form className="perfil-info-group" onSubmit={handleGuardar}>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Email:</span>
-                    <span className="perfil-info-value">{user?.email}</span>
+        <div className="perfil-container-modern">
+            <div className="page-header-modern">
+                <span className="header-icon-modern">👤</span>
+                <h2 className="page-title-modern">Mi Perfil</h2>
+                <p className="page-subtitle-modern">Gestione su información personal</p>
+            </div>
+            
+            <form className="perfil-form-modern" onSubmit={handleGuardar}>
+                <div className="form-section-modern">
+                    <h3 className="section-title-modern">Información de Cuenta</h3>
+                    <div className="form-grid-modern">
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Email:</label>
+                            <div className="form-value-modern">{user?.email}</div>
+                        </div>
+                    </div>
                 </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Teléfono:</span>
-                    {editMode ? (
-                        <input
-                            type="int"
-                            value={phoneInput}
-                            onChange={e => setPhoneInput(e.target.value)}
-                            disabled={saving}
-                            placeholder="Ej: +56912345678"
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{persona?.telefono || 'No registrado'}</span>
-                    )}
+
+                <div className="form-section-modern">
+                    <h3 className="section-title-modern">Información Personal</h3>
+                    <div className="form-grid-modern">
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Nombre:</label>
+                            {editMode ? (
+                                <input
+                                    type="text"
+                                    value={nombreInput}
+                                    onChange={e => setNombreInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                    placeholder="Ingrese su nombre"
+                                />
+                            ) : (
+                                <div className="form-value-modern">{persona?.nombre || 'No registrado'}</div>
+                            )}
+                        </div>
+                        
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Apellido:</label>
+                            {editMode ? (
+                                <input
+                                    type="text"
+                                    value={apellidoInput}
+                                    onChange={e => setApellidoInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                    placeholder="Ingrese su apellido"
+                                />
+                            ) : (
+                                <div className="form-value-modern">{persona?.apellido || 'No registrado'}</div>
+                            )}
+                        </div>
+                        
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">DNI:</label>
+                            {editMode ? (
+                                <input
+                                    type="text"
+                                    value={dniInput}
+                                    onChange={e => setDniInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                    placeholder="Ingrese su DNI"
+                                />
+                            ) : (
+                                <div className="form-value-modern">{persona?.dni || 'No registrado'}</div>
+                            )}
+                        </div>
+                        
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Teléfono:</label>
+                            {editMode ? (
+                                <input
+                                    type="tel"
+                                    value={phoneInput}
+                                    onChange={e => setPhoneInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                    placeholder="Ej: +56912345678"
+                                />
+                            ) : (
+                                <div className="form-value-modern">{persona?.telefono || 'No registrado'}</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Nombre:</span>
-                    {editMode ? (
-                        <input
-                            type="text"
-                            value={nombreInput}
-                            onChange={e => setNombreInput(e.target.value)}
-                            disabled={saving}
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{persona?.nombre || 'No registrado'}</span>
-                    )}
+
+                <div className="form-section-modern">
+                    <h3 className="section-title-modern">Información Médica</h3>
+                    <div className="form-grid-modern">
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Fecha de nacimiento:</label>
+                            {editMode ? (
+                                <input
+                                    type="date"
+                                    value={fechaNacimientoInput}
+                                    onChange={e => setFechaNacimientoInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                />
+                            ) : (
+                                <div className="form-value-modern">
+                                    {paciente?.fecha_nacimiento
+                                        ? new Date(paciente.fecha_nacimiento).toLocaleDateString()
+                                        : 'No registrado'}
+                                </div>
+                            )}
+                        </div>
+                        
+                        <div className="form-group-modern">
+                            <label className="form-label-modern">Género:</label>
+                            {editMode ? (
+                                <select
+                                    value={generoInput}
+                                    onChange={e => setGeneroInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-select-modern"
+                                >
+                                    <option value="">Selecciona...</option>
+                                    <option value="Masculino">Masculino</option>
+                                    <option value="Femenino">Femenino</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            ) : (
+                                <div className="form-value-modern">{paciente?.genero || 'No registrado'}</div>
+                            )}
+                        </div>
+                        
+                        <div className="form-group-modern full-width">
+                            <label className="form-label-modern">Dirección:</label>
+                            {editMode ? (
+                                <input
+                                    type="text"
+                                    value={direccionInput}
+                                    onChange={e => setDireccionInput(e.target.value)}
+                                    disabled={saving}
+                                    className="form-input-modern"
+                                    placeholder="Ingrese su dirección"
+                                />
+                            ) : (
+                                <div className="form-value-modern">{paciente?.direccion || 'No registrado'}</div>
+                            )}
+                        </div>
+                    </div>
                 </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Apellido:</span>
-                    {editMode ? (
-                        <input
-                            type="text"
-                            value={apellidoInput}
-                            onChange={e => setApellidoInput(e.target.value)}
-                            disabled={saving}
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{persona?.apellido || 'No registrado'}</span>
-                    )}
-                </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">DNI:</span>
-                    {editMode ? (
-                        <input
-                            type="text"
-                            value={dniInput}
-                            onChange={e => setDniInput(e.target.value)}
-                            disabled={saving}
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{persona?.dni || 'No registrado'}</span>
-                    )}
-                </div>
-                {/* Ejemplo de campos de la tabla paciente */}
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Fecha de nacimiento:</span>
-                    {editMode ? (
-                        <input
-                            type="date"
-                            value={fechaNacimientoInput}
-                            onChange={e => setFechaNacimientoInput(e.target.value)}
-                            disabled={saving}
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{paciente?.fecha_nacimiento
-                            ? new Date(paciente.fecha_nacimiento).toLocaleDateString()
-                            : 'No registrado'}
-                        </span>
-                    )}
-                </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Dirección:</span>
-                    {editMode ? (
-                        <input
-                            type="text"
-                            value={direccionInput}
-                            onChange={e => setDireccionInput(e.target.value)}
-                            disabled={saving}
-                        />
-                    ) : (
-                        <span className="perfil-info-value">{paciente?.direccion || 'No registrado'}</span>
-                    )}
-                </div>
-                <div className="perfil-info-item">
-                    <span className="perfil-info-label">Género:</span>
-                    {editMode ? (
-                        <select
-                            value={generoInput}
-                            onChange={e => setGeneroInput(e.target.value)}
-                            disabled={saving}
-                        >
-                            <option value="">Selecciona...</option>
-                            <option value="Masculino">Masculino</option>
-                            <option value="Femenino">Femenino</option>
-                            <option value="otro">Otro</option>
-                        </select>
-                    ) : (
-                        <span className="perfil-info-value">{paciente?.genero || 'No registrado'}</span>
-                    )}
-                </div>
-                <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+
+                <div className="form-actions-modern">
                     {!editMode && (
                         <button
                             type="button"
-                            className="perfil-form-button"
+                            className="btn-primary-modern"
                             onClick={() => setEditMode(true)}
                         >
-                            Editar
+                            ✏️ Editar Perfil
                         </button>
                     )}
                     {editMode && (
@@ -312,9 +365,9 @@ function Perfil() {
                             <button
                                 type="submit"
                                 disabled={saving}
-                                className="perfil-form-button"
+                                className="btn-success-modern"
                             >
-                                {saving ? 'Guardando...' : 'Guardar'}
+                                {saving ? '💾 Guardando...' : '💾 Guardar Cambios'}
                             </button>
                             <button
                                 type="button"
@@ -329,10 +382,9 @@ function Perfil() {
                                     setGeneroInput(paciente?.genero || '');
                                 }}
                                 disabled={saving}
-                                className="perfil-form-button"
-                                style={{ background: '#ccc', color: '#222' }}
+                                className="btn-secondary-modern"
                             >
-                                Cancelar
+                                ❌ Cancelar
                             </button>
                         </>
                     )}
